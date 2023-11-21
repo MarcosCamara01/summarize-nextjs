@@ -6,7 +6,7 @@ export default async function Home() {
   const session = await getServerSession(authOptions);
 
   return (
-    <section>
+    <section className="w-full h-screen flex flex-col items-center justify-center">
       <h1>This is the main page</h1>
       {
         session !== null ? <pre>{JSON.stringify(session, null, 2)}</pre>

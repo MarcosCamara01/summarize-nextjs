@@ -47,6 +47,10 @@ export const authOptions: NextAuthOptions  = {
         token.email = session.email;
       }
 
+      if (trigger === "update" && session?.api) {
+        token.api = session.api;
+      }
+
       if (user) {
         const u = user as unknown as any;
         return {
