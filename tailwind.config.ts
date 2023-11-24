@@ -31,6 +31,9 @@ const config: Config = {
         'grid-img': '560px',
         '250': '250px'
       },
+      minHeight: {
+        '150': '150px'
+      },
       maxWidth: {
         'img': '850px',
         '350': '350px',

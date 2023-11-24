@@ -1,25 +1,25 @@
 import { Configuration, OpenAIApi } from 'openai-edge'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
 
-const config = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY
-})
-const openai = new OpenAIApi(config)
+export const runtime = 'edge';
 
-export const runtime = 'edge'
-
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
 
     try {
-        const { messages } = await req.json()
+        const { messages, api } = await req.json();
+
+        const config = new Configuration({
+            apiKey: api
+        })
+        const openai = new OpenAIApi(config)
 
         const prompt = [
             {
                 role: 'system',
-                content: `The AI assistant only summarizes the text provided by the user.
-                    The AI assistant does not respond to anything other than a summary, it only serves that purpose.
-                    If the AI assistant considers that the text provided is not a valid text to make a summary the assistant will say,
-                    "I'm sorry but the text you have provided is not valid".
+                content: `The first sentence written by the AI assistant will be the title of the text provided by the user and will be separated by a colon with the text summary.
+                 After making the title, the AI assistant will make a summary of the text so that the user can study it but without losing anything relevant.
+                 The AI assistant does not answer anything other than a summary and a title, it is only good for that.
+                 If the AI assistant considers that the text provided is not a valid text to make a summary the assistant will say, "I'm sorry, but the text you have provided is not valid".
                 `,
             },
         ]
