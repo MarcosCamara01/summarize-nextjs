@@ -9,7 +9,7 @@ interface SummaryDoc extends Document {
 const SummarySchema = new Schema<SummaryDoc>({
   title: {
     type: String,
-    required: true
+    default: "No title"
   },
   summary: {
     type: String,
