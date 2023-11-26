@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/chat/route.ts", "src/helpers/getUserApi.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/chat/route.ts", "src/helpers/getUserApi.js", "src/app/summarize/page.jsx"],
   "exclude": ["node_modules"]
 }

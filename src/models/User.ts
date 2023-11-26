@@ -24,7 +24,7 @@ const UserSchema = new Schema(
     },
     api: {
       type: String,
-      default: ""
+      required: [true, "API key is required"]
     }
   },
   {

@@ -7,17 +7,16 @@ export default function Summarize() {
     const { data: session } = useSession();
     const { messages, input, handleInputChange, handleSubmit } = useChat({
         body: {
-            api: session?.user?.api
+            api: session?.user?.api,
+            userId: session?.user?._id
         }
     });
-
-    console.log(messages)
 
     return (
         <section className="w-full min-h-screen pt-16 flex flex-col items-center justify-center">
             <form className='w-full flex items-center justify-center'>
                 <textarea
-                    className='w-full max-w-lg max-h-96 min-h-150 p-1.5 rounded bg-background-secondary text-sm resize'
+                    className='w-full max-w-3xl max-h-96 min-h-150 p-1.5 rounded bg-background-secondary text-sm resize'
                     value={input}
                     onChange={handleInputChange}
                 />
@@ -30,7 +29,7 @@ export default function Summarize() {
                 {messages.map(m => (
                     <div key={m.id} className='p-5'>
                         <span className='text-green-400	'>{m.role === "assistant" ? "Summary" : "Text"}</span>: {m.content}
-                    </div>
+                    </div>  
                 ))}
             </div>
         </section>
