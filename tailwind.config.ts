@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       gridTemplateColumns: {
-        'auto-fill-250': 'repeat(auto-fill, minmax(250px, 1fr))',
+        'auto-fill-250': 'repeat(auto-fill, minmax(300px, 1fr))',
         'auto-fill-110': 'repeat(auto-fill, minmax(110px, 1fr))',
         'auto-fill-32': 'repeat(auto-fill, minmax(32px, 1fr))',
       },
@@ -32,7 +32,8 @@ const config: Config = {
         '250': '250px'
       },
       minHeight: {
-        '150': '150px'
+        '150': '150px',
+        '80vh': '80vh',
       },
       maxWidth: {
         'img': '850px',

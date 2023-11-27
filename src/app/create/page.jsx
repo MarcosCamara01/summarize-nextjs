@@ -1,5 +1,6 @@
 'use client'
 
+import { Summary } from '@/components/summary/Summary';
 import { useChat } from 'ai/react';
 import { useSession } from 'next-auth/react';
 
@@ -33,13 +34,13 @@ export default function Summarize() {
     });
 
     return (
-        <section className="w-full min-h-screen pt-16 flex flex-col items-center justify-center">
+        <section className="w-full min-h-80vh flex flex-col items-center justify-center">
             {messages[1]
                 ?
-                <div className='w-9/12'>
-                    <h1 className='text-center text-xl font-bold mb-6'>{messagesWithSeparatedTitle[1]?.title ? messagesWithSeparatedTitle[1].title : "No title"}</h1>
-                    <p>{messagesWithSeparatedTitle[1]?.content}</p>
-                </div>
+                <Summary
+                    title={messagesWithSeparatedTitle[1]?.title ? messagesWithSeparatedTitle[1].title : "No title"}
+                    summary={messagesWithSeparatedTitle[1]?.content}
+                />
                 :
                 <>
                     <form className='w-full flex items-center justify-center'>

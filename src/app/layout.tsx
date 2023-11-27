@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <Providers>
         <body className={inter.className}>
-          <main className='min-h-screen'>
+          <main className='min-h-screen px-12	py-24'>
             {children}
           </main>
         </body>

@@ -3,6 +3,28 @@ import Summary from "@/models/Summary";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
+export async function GET(request: Request, context: any) {
+    try {
+        await connectDB();
+        let response = [];
+        const { searchParams } = new URL(request.url);
+        const userId = searchParams.get('userId');
+        const _id = searchParams.get('id');
+
+        if (userId) {
+            response = await Summary.find({ userId });
+        } else if (_id) {
+            response = await Summary.findById({ _id });
+        }
+        
+        return NextResponse.json(response);
+
+    } catch (error) {
+        console.error('Failed to fetch summaries.', error);
+        return NextResponse.json({ error: 'Failed to fetch summaries.' }, { status: 500 });
+    }
+}
+
 export async function POST(request: Request) {
     try {
         await connectDB();
