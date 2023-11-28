@@ -1,36 +1,46 @@
-import { Schema, model, models } from "mongoose";
+import { Document, model, Schema, models } from 'mongoose';
 
-const UserSchema = new Schema(
+export interface UserDocument extends Document {
+  email: string;
+  password: string;
+  name: string;
+  api: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const UserSchema = new Schema<UserDocument>(
   {
     email: {
       type: String,
       unique: true,
-      required: [true, "Email is required"],
+      required: [true, 'Email is required'],
       match: [
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-        "Email is invalid",
+        'Email is invalid',
       ],
     },
     password: {
       type: String,
-      required: [true, "Password is required"],
+      required: [true, 'Password is required'],
       select: false,
     },
     name: {
       type: String,
-      required: [true, "Fullname is required"],
-      minLength: [3, "fullname must be at least 3 characters"],
-      maxLength: [25, "fullname must be at most 25 characters"],
+      required: [true, 'Fullname is required'],
+      minLength: [3, 'fullname must be at least 3 characters'],
+      maxLength: [25, 'fullname must be at most 25 characters'],
     },
     api: {
       type: String,
-      required: [true, "API key is required"]
-    }
+      required: [true, 'API key is required'],
+    },
   },
   {
     timestamps: true,
   }
 );
 
-const User = models.User || model('User', UserSchema);
+const User = models.User || model<UserDocument>('User', UserSchema);
+
 export default User;

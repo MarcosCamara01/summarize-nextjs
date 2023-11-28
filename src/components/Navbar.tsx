@@ -47,16 +47,14 @@ export const Navbar = () => {
             <li className='flex items-center justify-center'>
               <Link
                 href="/account"
-                onClick={toggleHeader}
-              >{session.user.name?.split(' ')[0]}
+              >{session?.user?.name?.split(' ')[0]}
               </Link>
             </li>
           ) : (
             <li className='flex items-center justify-center'>
               <Link
                 href="/login"
-                onClick={toggleHeader}
-              >Login
+               >Login
               </Link>
             </li>
           )

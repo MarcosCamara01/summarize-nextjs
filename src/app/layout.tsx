@@ -12,18 +12,15 @@ export const metadata: Metadata = {
   description: 'Summarize app using OpenAI API and Vercel AI SDK',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout(props: { children: React.ReactNode, modal: React.ReactNode }) {
   return (
     <html lang="en">
       <Providers>
         <body className={inter.className}>
           <Navbar />
           <main>
-            {children}
+            {props.children}
+            {props.modal}
           </main>
         </body>
       </Providers>
