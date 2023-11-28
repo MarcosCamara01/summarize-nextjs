@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Providers from "./Providers";
+import { Navbar } from "@/components/Navbar";
 
 import './globals.css'
 
@@ -20,7 +21,8 @@ export default function RootLayout({
     <html lang="en">
       <Providers>
         <body className={inter.className}>
-          <main className='min-h-screen px-12	py-24'>
+          <Navbar />
+          <main>
             {children}
           </main>
         </body>

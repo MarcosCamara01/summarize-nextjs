@@ -25,3 +25,8 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+main {
+  padding: 0 48px 102px;
+  min-height: calc(100vh - 101px);
+}
