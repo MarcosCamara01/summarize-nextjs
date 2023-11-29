@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Providers from "./Providers";
-import { Navbar } from "@/components/Navbar";
+import { Sidebar } from '@/components/Sidebar';
 
 import './globals.css'
 
@@ -17,7 +17,7 @@ export default function RootLayout(props: { children: React.ReactNode, modal: Re
     <html lang="en">
       <Providers>
         <body className={inter.className}>
-          <Navbar />
+          <Sidebar />
           <main>
             {props.children}
             {props.modal}
