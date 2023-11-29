@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/chat/route.ts", "src/helpers/getUserApi.js", "src/app/create/page.jsx", "src/components/account/UpdateButton.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/chat/route.ts", "src/helpers/getUserApi.js", "src/app/create/page.tsx", "src/components/account/UpdateButton.tsx"],
   "exclude": ["node_modules"]
 }

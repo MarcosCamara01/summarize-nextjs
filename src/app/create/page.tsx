@@ -1,8 +1,9 @@
 'use client'
 
-import { Summary } from '@/components/summary/Summary';
+import Frame from '@/components/frame/Frame';
 import { useChat } from 'ai/react';
 import { useSession } from 'next-auth/react';
+import { SummaryDoc } from "@/models/Summary"
 
 export default function Summarize() {
     const { data: session } = useSession();
@@ -25,34 +26,35 @@ export default function Summarize() {
 
                 return {
                     title: titleWithoutSeparator,
-                    content: bodyText,
-                };
+                    summary: bodyText,
+                    userId: session?.user?._id
+                }
             }
         }
 
-        return m;
-    });
+        return null;
+    }) as SummaryDoc[];
 
     return (
         <section className="w-full min-h-80vh flex flex-col items-center justify-center">
             {messages[1]
                 ?
-                <Summary
-                    title={messagesWithSeparatedTitle[1]?.title ? messagesWithSeparatedTitle[1].title : "No title"}
-                    summary={messagesWithSeparatedTitle[1]?.content}
+                <Frame
+                    summary={messagesWithSeparatedTitle[1]}
                 />
                 :
                 <>
-                    <form className='w-full flex items-center justify-center'>
+                    <form className='w-full flex flex-col items-center justify-center' onSubmit={handleSubmit}>
                         <textarea
                             className='w-full max-w-3xl max-h-96 min-h-150 p-1.5 rounded bg-background-secondary text-sm resize'
                             value={input}
                             onChange={handleInputChange}
                         />
+
+                        <button type="submit">
+                            Send
+                        </button>
                     </form>
-                    <button onClick={handleSubmit}>
-                        Send
-                    </button>
                 </>
             }
         </section>

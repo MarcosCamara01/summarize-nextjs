@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from 'react';
 
-export function useClientMediaQuery(query) {
+export function useClientMediaQuery(query: string) {
   const [matches, setMatches] = useState(null);
 
   useEffect(() => {
-    const mediaQueryList = window.matchMedia(query);
+    const mediaQueryList: any = window.matchMedia(query);
 
-    const handleMatchChange = (e) => {
+    const handleMatchChange = (e: any) => {
       setMatches(e.matches);
     };
 
