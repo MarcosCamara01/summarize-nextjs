@@ -23,12 +23,68 @@ body {
       rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
-.main-full {
-  transition: width 200ms ease;
-  width: calc(100% - 0px);
+.sidebar-open {
+  transition: width 150ms ease-in;
+  width: 200px;
 }
 
-.sidebar-open {
-  transition: width 200ms ease;
+.sidebar-close {
+  transition: width 150ms ease;
+  min-width: 60px; 
+  width: 60px;
+  overflow: hidden;
+}
+
+.main-full {
+  transition: width 150ms ease;
+  width: calc(100% - 60px);
+}
+
+.main-sbopen {
+  transition: width 150ms ease;
   width: calc(100% - 200px);
+}
+
+.shine {
+  background: linear-gradient(270deg, #111, #333, #333, #111);
+  background-size: 400% 100%;
+  animation: 8s shine ease-in-out infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.btn-sidebar {
+  transition: left 150ms ease;
+}
+
+.btn-sidebar:hover .btn-close-top {
+  transform: translateY(0.15rem) rotate(20deg) translateZ(0px);
+}
+
+.btn-sidebar:hover .btn-close-bottom {
+  transform: translateY(-0.15rem) rotate(-20deg) translateZ(0px);
+}
+
+.btn-close-top {
+  transform: translateY(0.15rem) rotate(0deg) translateZ(0px);
+}
+
+.btn-close-bottom {
+  transform: translateY(-0.15rem) rotate(0deg) translateZ(0px);
+}
+
+.btn-open-top {
+  transform: translateY(0.15rem) rotate(-20deg) translateZ(0px);
+}
+
+.btn-open-bottom {
+  transform: translateY(-0.15rem) rotate(20deg) translateZ(0px);
 }
