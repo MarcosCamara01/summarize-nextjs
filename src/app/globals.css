@@ -18,15 +18,17 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
-main {
-  padding: 0 48px 102px;
-  min-height: calc(100vh - 101px);
+.main-full {
+  transition: width 200ms ease;
+  width: calc(100% - 0px);
+}
+
+.sidebar-open {
+  transition: width 200ms ease;
+  width: calc(100% - 200px);
 }

@@ -7,7 +7,7 @@ const SidebarContext = createContext();
 
 export const SidebarProvider = ({ children }) => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
-    const isMobile = useClientMediaQuery('(max-width: 600px)');
+    const isMobile = useClientMediaQuery('(max-width: 640px)');
 
     useEffect(() => {
         if (isMobile) {

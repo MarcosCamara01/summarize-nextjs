@@ -27,14 +27,14 @@ export const Sidebar = () => {
                     <div className='h-5 rounded-sm w-14 shine'></div>
                     :
                     status === "authenticated" ? (
-                        <li className='flex items-center justify-center'>
+                        <li>
                             <Link
                                 href="/account"
                             >{session?.user?.name?.split(' ')[0]}
                             </Link>
                         </li>
                     ) : (
-                        <li className='flex items-center justify-center'>
+                        <li>
                             <Link
                                 href="/login"
                             >Login
@@ -52,29 +52,28 @@ export const Sidebar = () => {
 
     return (
         <>
-            <div className={`h-full bg-background-secondary p-2	transition duration-150 ease-out z-10 fixed border-r border-solid border-border-primary
-             ${isSidebarOpen ? 'w-[200px] translate-x-0' : 'translate-x-hide overflow-hidden'} ${isMobile && isSidebarOpen ? 'w-full' : ''}`}>
-                <div className="flex items-center">
-                    <button className="border border-solid border-border-primary p-3 flex items-center rounded" onClick={toggleSidebar}>
-                        <FiSidebar />
-                    </button>
-                </div>
-
-                <nav>
+            <div className={`bg-background-secondary py-4 px-3 transition duration-200 ease z-10 border-r border-solid border-border-primary fixed h-full 
+                            ${isMobile ? 'h-full w-full' : ''} ${isSidebarOpen ? 'min-w-[200px] translate-x-0' : 'translate-x-hide overflow-hidden'}`}>
+                <nav className='flex flex-col justify-between items-center h-full'>
                     <ul>
+                        <button className="border border-solid border-border-primary p-3 flex items-center rounded" onClick={toggleSidebar}>
+                            <FiSidebar />
+                        </button>
                         {linksData.map((link, index) => (
-                            <li key={index} className='flex items-center justify-center'>
+                            <li key={index}>
                                 <Link href={link.path} onClick={toggleMobile}>{link.name}</Link>
                             </li>
                         ))}
+                    </ul>
 
+                    <ul>
                         {authLinks}
                     </ul>
                 </nav>
             </div >
 
             {!isSidebarOpen && (
-                <button className="fixed top-2.5 left-2.5 border border-solid border-border-primary p-3 flex items-center rounded" onClick={toggleSidebar}>
+                <button className="fixed z-10 top-2.5 left-2.5 border border-solid border-border-primary p-3 flex items-center rounded" onClick={toggleSidebar}>
                     <FiSidebar />
                 </button>
             )}
