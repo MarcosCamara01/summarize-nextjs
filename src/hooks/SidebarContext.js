@@ -6,7 +6,7 @@ import { useClientMediaQuery } from './useClientMediaQuery';
 const SidebarContext = createContext();
 
 export const SidebarProvider = ({ children }) => {
-    const [isSidebarOpen, setSidebarOpen] = useState(false);
+    const [isSidebarOpen, setSidebarOpen] = useState(true);
     const isMobile = useClientMediaQuery('(max-width: 640px)');
 
     useEffect(() => {

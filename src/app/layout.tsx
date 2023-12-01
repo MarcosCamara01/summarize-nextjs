@@ -1,11 +1,10 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { GeistSans } from 'geist/font/sans';
 import Providers from "./Providers";
 import FlexMain from '@/components/common/FlexMain';
 
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Summarize APP',
@@ -16,7 +15,7 @@ export default function RootLayout(props: { children: React.ReactNode, modal: Re
   return (
     <html lang="en">
       <Providers>
-        <body className={inter.className}>
+        <body className={GeistSans.className}>
           <FlexMain>
             {props.children}
             {props.modal}

@@ -4,7 +4,7 @@ import React from 'react';
 import { useSidebar } from '@/hooks/SidebarContext';
 import { useSession } from 'next-auth/react';
 import { IoMdBook } from "react-icons/io";
-import { RiOpenaiFill } from "react-icons/ri";
+import { RiOpenaiFill, RiMenu4Fill, RiCloseFill } from "react-icons/ri";
 import { FaRegLightbulb } from "react-icons/fa";
 import Link from 'next/link';
 
@@ -28,14 +28,59 @@ export const Sidebar = () => {
         { path: '/create', name: 'Create', icon: <FaRegLightbulb className="text-xl min-w-[20px]" /> },
     ];
 
+    const sidebarButton = () => {
+        if (isMobile !== null) {
+            if (!isMobile) {
+                return (
+                    <button
+                        className={`fixed z-10 top-[45%] w-8 h-[72px] flex items-center btn-sidebar ${isSidebarOpen ? "left-[200px]" : "left-[60px]"}`}
+                        onClick={toggleSidebar}
+                    >
+                        <div className='h-8 w-8 flex flex-col items-center'>
+                            <div className={`h-4 w-1 rounded-full bg-white transition duration-150 ease ${isSidebarOpen ? "btn-close-top" : "btn-open-top"}`}></div>
+                            <div className={`h-4 w-1 rounded-full bg-white transition duration-150 ease ${isSidebarOpen ? "btn-close-bottom" : "btn-open-bottom"}`}></div>
+                        </div>
+                    </button>
+                )
+            } else {
+                return (
+                    <header className='fixed top-0 p-4 w-full flex items-center justify-between z-10 bg-background-secondary border-b border-solid border-border-primary'>
+                        <Link href="https://platform.openai.com/" target='_blank'>
+                            <RiOpenaiFill
+                                className="text-3xl"
+                            />
+                        </Link>
+
+                        <button onClick={toggleSidebar}>
+                            {
+                                isSidebarOpen ?
+                                    <RiCloseFill
+                                        className="text-2xl"
+                                    />
+                                    :
+                                    <RiMenu4Fill
+                                        className="text-2xl"
+                                    />
+                            }
+                        </button>
+                    </header>
+                );
+            }
+        }
+    }
+
     return (
         <>
             <div className={`bg-background-secondary py-5 px-3.5 z-10 border-r border-solid border-border-primary fixed h-full sidebar
-                            ${isMobile ? 'h-full w-full' : ''} ${isSidebarOpen && !isMobile ? 'sidebar-open' : 'sidebar-close'}`}>
+                ${!isMobile
+                    ?
+                    isSidebarOpen ? 'sidebar-open' : 'sidebar-close'
+                    :
+                    `h-full w-full transition duration-100 ease ${isSidebarOpen ? "translate-x-0" : "translate-x-hide overflow-hidden"}`}`}>
                 <nav className='flex flex-col justify-between items-center h-full'>
                     <ul className='w-full flex flex-col gap-2'>
                         <li className='mb-5'>
-                            <Link href="#">
+                            <Link href="https://platform.openai.com/" target='_blank'>
                                 <RiOpenaiFill
                                     className="text-3xl"
                                 />
@@ -49,7 +94,9 @@ export const Sidebar = () => {
                                 >
                                     <div className='h-8 p-1.5 flex items-center gap-3'>
                                         {link.icon}
-                                        {isSidebarOpen && !isMobile ? <span className='text-sm'>{link.name}</span> : ""}
+                                        <span className={`text-sm transition-opacity duration-150 delay-100 ease-in-out ${!isMobile ? isSidebarOpen ? "opacity-100 visible" : "opacity-0 invisible" : ""}`}>
+                                            {link.name}
+                                        </span>
                                     </div>
                                 </Link>
                             </li>
@@ -61,26 +108,24 @@ export const Sidebar = () => {
                             status === "loading" ?
                                 <div className='h-5 rounded-sm w-14 shine'></div>
                                 :
-
                                 <li className='rounded w-full transition duration-150 ease hover:bg-color-secondary'>
                                     <button
-                                        className='p-1.5 text-sm w-full h-full flex items-center gap-3'
+                                        className='p-1.5 w-full h-full flex items-center gap-3'
                                     >
-                                        <div className='bg-white text-black text-xs min-w-[20px] rounded-full h-5 w-5 flex items-center justify-center'>{firstLetter}</div>
-                                        {isSidebarOpen && !isMobile ? "Personal" : ""}
+                                        <div className='bg-white text-black text-xs min-w-[20px] rounded-full h-5 w-5 flex items-center justify-center'>
+                                            {firstLetter}
+                                        </div>
+                                        <span className={`text-sm transition-opacity duration-150 delay-100 ease-in-out ${!isMobile ? isSidebarOpen ? "opacity-100 visible" : "opacity-0 invisible" : ""}`}>
+                                            Personal
+                                        </span>
                                     </button>
                                 </li>
                         }
                     </ul>
                 </nav>
-            </div >
+            </div>
 
-            <button className={`fixed z-10 top-[45%] w-8 h-[72px] flex items-center btn-sidebar ${isSidebarOpen && !isMobile ? "left-[200px]" : "left-[60px]"}`} onClick={toggleSidebar}>
-                <div className='h-8 w-8 flex flex-col items-center'>
-                    <div className={`h-4 w-1 rounded-full bg-white transition duration-150 ease ${isSidebarOpen && !isMobile ? "btn-close-top" : "btn-open-top"}`}></div>
-                    <div className={`h-4 w-1 rounded-full bg-white transition duration-150 ease ${isSidebarOpen && !isMobile ? "btn-close-bottom" : "btn-open-bottom"}`}></div>
-                </div>
-            </button>
+            {sidebarButton()}
         </>
     );
 };
