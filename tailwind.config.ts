@@ -9,9 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       gridTemplateColumns: {
-        'auto-fill-250': 'repeat(auto-fill, minmax(300px, 1fr))',
-        'auto-fill-110': 'repeat(auto-fill, minmax(110px, 1fr))',
-        'auto-fill-32': 'repeat(auto-fill, minmax(32px, 1fr))',
+        'auto-fill-250': 'repeat(auto-fill, minmax(252px, 1fr))',
       },
       colors: {
         'border-primary': '#242424',

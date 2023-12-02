@@ -4,6 +4,7 @@ import Frame from '@/components/frame/Frame';
 import { useChat } from 'ai/react';
 import { useSession } from 'next-auth/react';
 import { SummaryDoc } from "@/models/Summary"
+import { Title } from '@/components/common/Title';
 
 export default function Summarize() {
     const { data: session } = useSession();
@@ -36,27 +37,33 @@ export default function Summarize() {
     }) as SummaryDoc[];
 
     return (
-        <section className="w-full min-h-80vh flex flex-col items-center justify-center">
-            {messages[1]
-                ?
-                <Frame
-                    summary={messagesWithSeparatedTitle[1]}
-                />
-                :
-                <>
-                    <form className='w-full flex flex-col items-center justify-center' onSubmit={handleSubmit}>
-                        <textarea
-                            className='w-full max-w-3xl max-h-96 min-h-150 p-1.5 rounded bg-background-secondary text-sm resize'
-                            value={input}
-                            onChange={handleInputChange}
-                        />
+        <>
+            <Title
+                title='Create a summary'
+            />
 
-                        <button type="submit">
-                            Send
-                        </button>
-                    </form>
-                </>
-            }
-        </section>
+            <section className="w-full min-h-80vh flex flex-col items-center justify-center">
+                {messages[1]
+                    ?
+                    <Frame
+                        summary={messagesWithSeparatedTitle[1]}
+                    />
+                    :
+                    <>
+                        <form className='w-full flex flex-col items-center justify-center' onSubmit={handleSubmit}>
+                            <textarea
+                                className='w-full max-w-3xl max-h-96 min-h-150 p-1.5 rounded bg-background-secondary text-sm resize'
+                                value={input}
+                                onChange={handleInputChange}
+                            />
+
+                            <button type="submit">
+                                Send
+                            </button>
+                        </form>
+                    </>
+                }
+            </section>
+        </>
     )
 }

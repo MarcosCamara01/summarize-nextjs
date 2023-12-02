@@ -2,6 +2,7 @@ import React from 'react';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/libs/auth";
 import { Summaries } from '@/components/summary/Summaries';
+import { Title } from '@/components/common/Title';
 
 const SummariesPage = async () => {
   let summaries = [];
@@ -20,11 +21,19 @@ const SummariesPage = async () => {
   } catch (error) {
     console.error('Failed to fetch summaries:', error);
   }
-  
+
   return (
-    <Summaries
-      summaries={summaries}
-    />
+    <>
+      <Title
+        title='Your summaries'
+      />
+
+      <section className='py-12 px-3.5 min-[350px]:px-6 sm:px-12'>
+        <Summaries
+          summaries={summaries}
+        />
+      </section>
+    </>
   )
 }
 

@@ -24,8 +24,8 @@ export const Sidebar = () => {
     };
 
     const linksData = [
-        { path: '/summaries', name: 'Summaries', icon: <IoMdBook className="text-xl min-w-[20px]" /> },
         { path: '/create', name: 'Create', icon: <FaRegLightbulb className="text-xl min-w-[20px]" /> },
+        { path: '/summaries', name: 'Summaries', icon: <IoMdBook className="text-xl min-w-[20px]" /> },
     ];
 
     const sidebarButton = () => {
@@ -44,7 +44,7 @@ export const Sidebar = () => {
                 )
             } else {
                 return (
-                    <header className='fixed top-0 p-4 w-full flex items-center justify-between z-10 bg-background-secondary border-b border-solid border-border-primary'>
+                    <header className='fixed top-0 p-4 w-full flex items-center justify-between z-10 bg-black border-b border-solid border-border-primary'>
                         <Link href="https://platform.openai.com/" target='_blank'>
                             <RiOpenaiFill
                                 className="text-3xl"
@@ -71,7 +71,7 @@ export const Sidebar = () => {
 
     return (
         <>
-            <div className={`bg-background-secondary py-5 px-3.5 z-10 border-r border-solid border-border-primary fixed h-full sidebar
+            <div className={`bg-black py-5 px-3.5 z-10 border-r border-solid border-border-primary fixed h-full sidebar
                 ${!isMobile
                     ?
                     isSidebarOpen ? 'sidebar-open' : 'sidebar-close'

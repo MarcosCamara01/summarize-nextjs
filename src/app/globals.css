@@ -24,7 +24,7 @@ body {
 }
 
 .sidebar-open {
-  transition: width 150ms ease-in;
+  transition: width 150ms ease;
   width: 200px;
 }
 
