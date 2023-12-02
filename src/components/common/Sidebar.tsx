@@ -7,11 +7,11 @@ import { IoMdBook } from "react-icons/io";
 import { RiOpenaiFill, RiMenu4Fill, RiCloseFill } from "react-icons/ri";
 import { FaRegLightbulb } from "react-icons/fa";
 import Link from 'next/link';
+import { PersonalButton } from './PersonalButton';
 
 export const Sidebar = () => {
     const { isSidebarOpen, setSidebarOpen, isMobile } = useSidebar();
     const { data: session, status } = useSession();
-    const firstLetter = (session?.user?.name?.charAt(0) || '').toUpperCase();
 
     const toggleSidebar = () => {
         setSidebarOpen(!isSidebarOpen);
@@ -108,18 +108,11 @@ export const Sidebar = () => {
                             status === "loading" ?
                                 <div className='h-5 rounded-sm w-14 shine'></div>
                                 :
-                                <li className='rounded w-full transition duration-150 ease hover:bg-color-secondary'>
-                                    <button
-                                        className='p-1.5 w-full h-full flex items-center gap-3'
-                                    >
-                                        <div className='bg-white text-black text-xs min-w-[20px] rounded-full h-5 w-5 flex items-center justify-center'>
-                                            {firstLetter}
-                                        </div>
-                                        <span className={`text-sm transition-opacity duration-150 delay-100 ease-in-out ${!isMobile ? isSidebarOpen ? "opacity-100 visible" : "opacity-0 invisible" : ""}`}>
-                                            Personal
-                                        </span>
-                                    </button>
-                                </li>
+                                <PersonalButton
+                                    isSidebarOpen={isSidebarOpen}
+                                    isMobile={isMobile}
+                                    session={session}
+                                />
                         }
                     </ul>
                 </nav>

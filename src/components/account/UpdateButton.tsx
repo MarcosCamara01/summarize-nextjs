@@ -28,10 +28,6 @@ export const UpdateButton = ({ text }: { text: string }) => {
         };
     }, [toEdit, isMobile]);
 
-    interface UserDocument {
-        [name: string]: any;
-    }
-
     const handleUpdate = async (e: React.SyntheticEvent<EventTarget>) => {
         e.preventDefault();
         try {
