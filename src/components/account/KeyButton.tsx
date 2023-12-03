@@ -84,32 +84,37 @@ export function KeyButton({ isSidebarOpen, isMobile, session }: KeyButtonProps) 
             </li>
 
             {toEdit.field !== "none" && (
-                <div className='w-full h-screen fixed top-0 right-0 flex items-center justify-center bg-black/60 z-50 px-3.5 min-[350px]:px-6 sm:px-12'>
-                    <div className='w-full max-w-xl bg-black border border-solid border-border-primary rounded overflow-hidden' ref={ref}>
-                        <h4 className='px-5 pt-5 pb-3 text-base font-semibold'>Change your API key</h4>
-                        <div className='mx-5 mb-3'>
-                            <input
-                                type="text"
-                                className='w-3/4 p-1.5 bg-background-secondary border-t border-b border-l border-solid border-border-primary rounded-l-sm text-13	'
-                                value={toEdit.value}
-                                onChange={(e) => setToEdit({ ...toEdit, value: e.target.value })}
-                            />
+                <div className='fixed w-full h-screen z-10 left-0 right-0 top-0 bottom-0 bg-black/60'>
+                    <div className='w-full max-w-xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-3.5 min-[350px]:px-6 sm:px-0'>
+                        <div
+                            className='bg-black border border-solid border-border-primary rounded overflow-hidden'
+                            ref={ref}
+                        >
+                            <h4 className='px-5 pt-5 pb-3 text-base font-semibold'>Change your API key</h4>
+                            <div className='mx-5 mb-3'>
+                                <input
+                                    type="text"
+                                    className='w-3/4 p-1.5 bg-background-secondary border-t border-b border-l border-solid border-border-primary rounded-l-sm text-13	'
+                                    value={toEdit.value}
+                                    onChange={(e) => setToEdit({ ...toEdit, value: e.target.value })}
+                                />
+                                <button
+                                    onClick={(e) => handleUpdate(e)}
+                                    className='w-1/4 py-1.5 px-3.5 bg-background-secondary border border-solid border-border-primary rounded-r-sm text-13 transition duration-150 ease hover:bg-color-secondary'
+                                >
+                                    Update
+                                </button>
+                            </div>
+
                             <button
-                                onClick={(e) => handleUpdate(e)}
-                                className='w-1/4 py-1.5 px-3.5 bg-background-secondary border border-solid border-border-primary rounded-r-sm text-13 transition duration-150 ease hover:bg-color-secondary'
+                                className='text-sm w-full h-8 flex items-center justify-center bg-black border-t border-solid border-border-primary transition duration-150 ease hover:bg-color-secondary'
+                                onClick={() => {
+                                    setToEdit({ field: 'none', value: 'none' });
+                                }}
                             >
-                                Update
+                                Close
                             </button>
                         </div>
-
-                        <button
-                            className='text-sm w-full h-8 flex items-center justify-center bg-black border-t border-solid border-border-primary transition duration-150 ease hover:bg-color-secondary'
-                            onClick={() => {
-                                setToEdit({ field: 'none', value: 'none' });
-                            }}
-                        >
-                            Close
-                        </button>
                     </div>
                 </div>
             )}

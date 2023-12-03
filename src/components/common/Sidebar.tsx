@@ -3,8 +3,7 @@
 import React from 'react';
 import { useSidebar } from '@/hooks/SidebarContext';
 import { useSession } from 'next-auth/react';
-import { IoMdBook } from "react-icons/io";
-import { RiMenu4Fill, RiCloseFill } from "react-icons/ri";
+import { RiMenu4Fill, RiCloseFill, RiBookReadLine } from "react-icons/ri";
 import { PiBrain } from "react-icons/pi";
 import { FaRegLightbulb } from "react-icons/fa";
 import Link from 'next/link';
@@ -27,7 +26,7 @@ export const Sidebar = () => {
 
     const linksData = [
         { path: '/create', name: 'Create', icon: <FaRegLightbulb className="text-xl min-w-[20px]" /> },
-        { path: '/summaries', name: 'Summaries', icon: <IoMdBook className="text-xl min-w-[20px]" /> },
+        { path: '/summaries', name: 'Summaries', icon: <RiBookReadLine className="text-xl min-w-[20px]" /> },
     ];
 
     const sidebarButton = () => {
@@ -35,7 +34,7 @@ export const Sidebar = () => {
             if (!isMobile) {
                 return (
                     <button
-                        className={`fixed z-10 top-[45%] w-8 h-[72px] flex items-center btn-sidebar ${isSidebarOpen ? "left-[200px]" : "left-[60px]"}`}
+                        className={`fixed top-[45%] w-8 h-[72px] flex items-center btn-sidebar ${isSidebarOpen ? "left-[200px]" : "left-[60px]"}`}
                         onClick={toggleSidebar}
                     >
                         <div className='h-8 w-8 flex flex-col items-center'>

@@ -12,7 +12,7 @@ export default function FlexMain({ children }: { children: React.ReactNode }) {
         >
             <Sidebar />
             <main
-                className={`min-h-screen absolute top-0 right-0
+                className={`min-h-screen absolute top-0 right-0 z-[-1]
                 ${!isMobile ? isSidebarOpen ? "main-sbopen" : "main-full" : "w-full"}`}
             >
                 {children}
