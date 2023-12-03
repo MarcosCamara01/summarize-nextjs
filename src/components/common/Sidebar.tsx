@@ -4,10 +4,12 @@ import React from 'react';
 import { useSidebar } from '@/hooks/SidebarContext';
 import { useSession } from 'next-auth/react';
 import { IoMdBook } from "react-icons/io";
-import { RiOpenaiFill, RiMenu4Fill, RiCloseFill } from "react-icons/ri";
+import { RiMenu4Fill, RiCloseFill } from "react-icons/ri";
+import { PiBrain } from "react-icons/pi";
 import { FaRegLightbulb } from "react-icons/fa";
 import Link from 'next/link';
-import { PersonalButton } from './PersonalButton';
+import { PersonalButton } from '../account/PersonalButton';
+import { KeyButton } from '../account/KeyButton';
 
 export const Sidebar = () => {
     const { isSidebarOpen, setSidebarOpen, isMobile } = useSidebar();
@@ -46,7 +48,7 @@ export const Sidebar = () => {
                 return (
                     <header className='fixed top-0 p-4 w-full flex items-center justify-between z-10 bg-black border-b border-solid border-border-primary'>
                         <Link href="https://platform.openai.com/" target='_blank'>
-                            <RiOpenaiFill
+                            <PiBrain
                                 className="text-3xl"
                             />
                         </Link>
@@ -81,7 +83,7 @@ export const Sidebar = () => {
                     <ul className='w-full flex flex-col gap-2'>
                         <li className='mb-5'>
                             <Link href="https://platform.openai.com/" target='_blank'>
-                                <RiOpenaiFill
+                                <PiBrain
                                     className="text-3xl"
                                 />
                             </Link>
@@ -103,16 +105,26 @@ export const Sidebar = () => {
                         ))}
                     </ul>
 
-                    <ul className='w-full'>
+                    <ul className='w-full flex flex-col gap-2'>
                         {
                             status === "loading" ?
-                                <div className='h-5 rounded-sm w-14 shine'></div>
+                                <>
+                                    <div className='w-full h-5 rounded-sm shine'></div>
+                                    <div className='w-full h-5 rounded-sm shine'></div>
+                                </>
                                 :
-                                <PersonalButton
-                                    isSidebarOpen={isSidebarOpen}
-                                    isMobile={isMobile}
-                                    session={session}
-                                />
+                                <>
+                                    <KeyButton
+                                        isSidebarOpen={isSidebarOpen}
+                                        isMobile={isMobile}
+                                        session={session}
+                                    />
+                                    <PersonalButton
+                                        isSidebarOpen={isSidebarOpen}
+                                        isMobile={isMobile}
+                                        session={session}
+                                    />
+                                </>
                         }
                     </ul>
                 </nav>
