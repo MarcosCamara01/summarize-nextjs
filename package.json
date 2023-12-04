@@ -10,17 +10,22 @@
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",
+    "@types/uuid": "^9.0.2",
     "ai": "^2.2.25",
     "axios": "^1.6.2",
     "bcryptjs": "^2.4.3",
+    "filepond": "^4.30.4",
     "geist": "^1.2.0",
     "mongoose": "^8.0.1",
     "next": "14.0.3",
     "next-auth": "^4.24.5",
     "openai-edge": "^1.2.2",
+    "pdf2json": "^3.0.5",
     "react": "^18",
     "react-dom": "^18",
+    "react-filepond": "^7.1.2",
     "react-icons": "^4.12.0",
+    "uuid": "^9.0.1",
     "vaul": "^0.7.9"
   },
   "devDependencies": {

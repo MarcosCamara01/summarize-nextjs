@@ -4,10 +4,11 @@ import Frame from '@/components/frame/Frame';
 import { useChat } from 'ai/react';
 import { useSession } from 'next-auth/react';
 import { SummaryDoc } from "@/models/Summary"
+import FileUpload from './FileUpload';
 
 export default function CreateSummary() {
     const { data: session } = useSession();
-    const { messages, input, handleInputChange, handleSubmit } = useChat({
+    const { messages, input, setInput, handleInputChange, handleSubmit } = useChat({
         body: {
             api: session?.user?.api,
             userId: session?.user?._id
@@ -38,25 +39,34 @@ export default function CreateSummary() {
     return (
         <>
             {messages[1]
-            ?
-            <Frame
-                summary={messagesWithSeparatedTitle[1]}
-            />
-            :
-            <>
-                <form className='w-full flex flex-col items-center justify-center gap-6 px-3.5 min-[350px]:px-6 sm:px-0' onSubmit={handleSubmit}>
-                    <textarea
-                        className='w-full max-w-3xl max-h-96 min-h-150 p-1.5 rounded bg-background-secondary border border-solid border-border-primary text-sm resize'
-                        value={input}
-                        onChange={handleInputChange}
-                    />
+                ?
+                <Frame
+                    summary={messagesWithSeparatedTitle[1]}
+                />
+                :
+                <>
+                    <form className='w-full flex flex-col items-center justify-center gap-6 px-3.5 min-[350px]:px-6 sm:px-0' onSubmit={handleSubmit}>
+                        <textarea
+                            className='w-full max-w-3xl max-h-96 min-h-150 p-1.5 rounded bg-background-secondary border border-solid border-border-primary text-sm resize'
+                            value={input}
+                            onChange={handleInputChange}
+                        />
 
-                    <button type="submit" className='w-40 bg-background-secondary border border-solid border-border-primary rounded py-1 text-sm transition duration-150 ease hover:bg-color-secondary'>
-                        Send
-                    </button>
-                </form>
-            </>
-        }
+                        <div className='w-full max-w-3xl m-auto flex justify-between'>
+                            <div className='max-w-[250px] w-full h-[36px] overflow-hidden'>
+                                <FileUpload
+                                    setInput={setInput}
+                                />
+                            </div>
+                            <div></div>
+                        </div>
+
+                        <button type="submit" className='w-40 bg-background-secondary border border-solid border-border-primary rounded py-1 text-sm transition duration-150 ease hover:bg-color-secondary'>
+                            Send
+                        </button>
+                    </form>
+                </>
+            }
         </>
     )
 }
