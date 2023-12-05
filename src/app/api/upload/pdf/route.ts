@@ -7,13 +7,11 @@ export async function POST(req: NextRequest) {
     try {
         const formData: FormData = await req.formData();
         const uploadedFiles = formData.getAll('filepond');
-        console.log(uploadedFiles);
         let fileName = '';
         let parsedText = '';
 
         if (uploadedFiles && uploadedFiles.length > 0) {
             const uploadedFile = uploadedFiles[1];
-            console.log('Uploaded file:', uploadedFile);
 
             if (uploadedFile instanceof File) {
                 fileName = uuidv4();
@@ -43,7 +41,6 @@ export async function POST(req: NextRequest) {
 
                 const response = new NextResponse(parsedText);
                 response.headers.set('FileName', fileName);
-                console.log('Parsed text:', parsedText);
                 return response;
             } else {
                 console.error('The uploaded file is not a valid file.');

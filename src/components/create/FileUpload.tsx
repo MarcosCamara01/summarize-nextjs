@@ -8,7 +8,6 @@ interface FileUploadProps {
 const FileUpload: React.FC<FileUploadProps> = ({ setInput }) => {
     const handleProcessFile = (error: any, text: any) => {
         if (!error) {
-            console.log('Texto extraído del PDF:', text.serverId);
             setInput(text.serverId)
         } else {
             console.error('Error processing the file:', error);

@@ -84,7 +84,7 @@ export function KeyButton({ isSidebarOpen, isMobile, session }: KeyButtonProps) 
             </li>
 
             {toEdit.field !== "none" && (
-                <div className='fixed w-full h-screen z-10 left-0 right-0 top-0 bottom-0 bg-black/60'>
+                <div className='fixed w-full h-screen z-10 left-0 right-0 top-0 bottom-0 bg-black/80'>
                     <div className='w-full max-w-xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-3.5 min-[350px]:px-6 sm:px-0'>
                         <div
                             className='bg-black border border-solid border-border-primary rounded overflow-hidden'
