@@ -17,6 +17,7 @@
     "bcryptjs": "^2.4.3",
     "filepond": "^4.30.4",
     "geist": "^1.2.0",
+    "js-tiktoken": "^1.0.8",
     "mongoose": "^8.0.1",
     "next": "14.0.3",
     "next-auth": "^4.24.5",

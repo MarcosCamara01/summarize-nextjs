@@ -6,10 +6,10 @@ export const runtime = 'edge';
 export async function POST(req: Request) {
 
     try {
-        const { messages, api, userId } = await req.json();
+        const { messages, apiKey, userId, inputTokens } = await req.json();
 
         const config = new Configuration({
-            apiKey: api
+            apiKey: apiKey
         })
 
         const openai = new OpenAIApi(config)
@@ -51,6 +51,7 @@ export async function POST(req: Request) {
                                 title: titleWithoutSeparator,
                                 summary: bodyText,
                                 userId,
+                                inputTokens
                             }),
                         });
 

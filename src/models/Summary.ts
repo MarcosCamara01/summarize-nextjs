@@ -4,6 +4,7 @@ export interface SummaryDoc extends Document {
   title: string;
   summary: string;
   userId: string;
+  inputTokens: number;
 }
 
 const SummarySchema = new Schema<SummaryDoc>({
@@ -17,6 +18,10 @@ const SummarySchema = new Schema<SummaryDoc>({
   },
   userId: {
     type: String,
+    required: true
+  },
+  inputTokens: {
+    type: Number,
     required: true
   },
 });

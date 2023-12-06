@@ -2,8 +2,8 @@
 const nextConfig = {
     experimental: {
         serverComponentsExternalPackages: ['pdf2json'],
-        serverActions: true
-    },
+        serverActions: true,
+    }
 };
 
 module.exports = nextConfig;

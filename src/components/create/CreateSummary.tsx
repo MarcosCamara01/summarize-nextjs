@@ -5,24 +5,24 @@ import { useChat } from 'ai/react';
 import { useSession } from 'next-auth/react';
 import { SummaryDoc } from "@/models/Summary"
 import FileUpload from './FileUpload';
-import { CountTokensResponse, countTokens } from "./count-tokens";
+import { CountTokensResponse, countTokens } from "@/components/count-tokens";
 import { useState, useEffect } from "react";
-
 
 export default function CreateSummary() {
     const { data: session } = useSession();
+    const [result, setResult] = useState<null | CountTokensResponse>(null)
+
     const { messages, input, setInput, handleInputChange, handleSubmit } = useChat({
         body: {
-            api: session?.user?.api,
-            userId: session?.user?._id
+            apiKey: session?.user?.api,
+            userId: session?.user?._id,
+            inputTokens: result?.tokens_count
         }
     });
 
-    const [result, setResult] = useState<null | CountTokensResponse>(null)
 
     useEffect(() => {
         countTokens(input).then((r) => setResult(r))
-        console.log(result)
     }, [input])
 
     const messagesWithSeparatedTitle = messages.map(m => {
@@ -79,22 +79,24 @@ export default function CreateSummary() {
                             {result ? (
                                 result.error ? (
                                     <p className="text-red-500">{result.error.message}</p>
-                                ) : (
-                                    <div className="space-y-2 text-lg">
-                                        <div className="flex justify-between">
-                                            <p>Characters </p>
-                                            <p className="text-xl">{result.characters}</p>
+                                ) : result.characters && result.characters >= 1 ?
+                                    (
+                                        <div className="space-y-2 text-lg">
+                                            <div className="flex justify-between">
+                                                <p>Characters</p>
+                                                <p className="text-xl">{result.characters}</p>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <p>Words</p>
+                                                <p className="text-xl">{result.words}</p>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <p>Tokens</p>
+                                                <p className="text-xl font-bold">{result.tokens_count}</p>
+                                            </div>
                                         </div>
-                                        <div className="flex justify-between">
-                                            <p>Words</p>
-                                            <p className="text-xl">{result.words}</p>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <p>Tokens</p>
-                                            <p className="text-xl font-bold">{result.tokens_count}</p>
-                                        </div>
-                                    </div>
-                                )
+                                    )
+                                    : ""
                             ) : null}
                         </form>
                     </>
