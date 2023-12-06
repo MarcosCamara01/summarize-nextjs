@@ -117,16 +117,7 @@ export async function DELETE(request: Request) {
 
         const { summaryId } = await request.json();
 
-        const summary = await Summary.findById(summaryId);
-
-        if (!summary) {
-            return NextResponse.json(
-                { message: "Summary not found" },
-                { status: 404 }
-            );
-        }
-
-        await summary.remove();
+        await Summary.findOneAndDelete(summaryId);
 
         return NextResponse.json(
             { message: "Summary deleted successfully" },
