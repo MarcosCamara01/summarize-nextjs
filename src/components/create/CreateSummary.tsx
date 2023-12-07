@@ -7,22 +7,31 @@ import { SummaryDoc } from "@/models/Summary"
 import FileUpload from './FileUpload';
 import { CountTokensResponse, countTokens } from "@/components/count-tokens";
 import { useState, useEffect } from "react";
+import { saveSummary } from '@/helpers/saveSummary';
 
 export default function CreateSummary() {
     const { data: session } = useSession();
-    const [result, setResult] = useState<null | CountTokensResponse>(null)
+    const [inputTokens, setInputTokens] = useState<null | CountTokensResponse>(null);
 
     const { messages, input, setInput, handleInputChange, handleSubmit } = useChat({
         body: {
-            apiKey: session?.user?.api,
-            userId: session?.user?._id,
-            inputTokens: result?.tokens_count
-        }
+            apiKey: session?.user?.api
+        },
+        onFinish: async (message) => {
+            try {
+                const inputTokens = await countTokens(input);
+                const responseOutput = await countTokens(message.content);
+
+                await saveSummary(message.content, session?.user?._id, inputTokens, responseOutput);
+            } catch (error) {
+                console.error(error);
+            }
+        },
     });
 
 
     useEffect(() => {
-        countTokens(input).then((r) => setResult(r))
+        countTokens(input).then((r) => setInputTokens(r))
     }, [input])
 
     const messagesWithSeparatedTitle = messages.map(m => {
@@ -63,8 +72,8 @@ export default function CreateSummary() {
                                 onChange={handleInputChange}
                             />
 
-                            <div className='w-full max-w-3xl m-auto flex justify-between'>
-                                <div className='max-w-[250px] w-full h-[38px]'>
+                            <div className='w-full max-w-3xl m-auto'>
+                                <div className='w-full h-[38px]'>
                                     <FileUpload
                                         setInput={setInput}
                                     />
@@ -76,23 +85,23 @@ export default function CreateSummary() {
                                 Send
                             </button>
 
-                            {result ? (
-                                result.error ? (
-                                    <p className="text-red-500">{result.error.message}</p>
-                                ) : result.characters && result.characters >= 1 ?
+                            {inputTokens ? (
+                                inputTokens.error ? (
+                                    <p className="text-red-500">{inputTokens.error.message}</p>
+                                ) : inputTokens.characters && inputTokens.characters >= 1 ?
                                     (
                                         <div className="space-y-2 text-lg">
                                             <div className="flex justify-between">
                                                 <p>Characters</p>
-                                                <p className="text-xl">{result.characters}</p>
+                                                <p className="text-xl">{inputTokens.characters}</p>
                                             </div>
                                             <div className="flex justify-between">
                                                 <p>Words</p>
-                                                <p className="text-xl">{result.words}</p>
+                                                <p className="text-xl">{inputTokens.words}</p>
                                             </div>
                                             <div className="flex justify-between">
                                                 <p>Tokens</p>
-                                                <p className="text-xl font-bold">{result.tokens_count}</p>
+                                                <p className="text-xl font-bold">{inputTokens.tokens_count}</p>
                                             </div>
                                         </div>
                                     )

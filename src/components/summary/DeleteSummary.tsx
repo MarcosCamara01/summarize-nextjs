@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaRegTrashAlt } from "react-icons/fa";
+import { FiTrash } from "react-icons/fi";
 
 interface DeleteSummaryProps {
     summaryId: string;
@@ -8,7 +8,6 @@ interface DeleteSummaryProps {
 }
 
 export const DeleteSummary = ({ summaryId, summaryIdToDelete, onDelete }: DeleteSummaryProps) => {
-    console.log(summaryId)
     const deleteSummary = async () => {
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/summary`, {
@@ -17,12 +16,12 @@ export const DeleteSummary = ({ summaryId, summaryIdToDelete, onDelete }: Delete
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    summaryId
+                    summaryIdToDelete
                 }),
             });
 
             if (response.ok) {
-                onDelete(summaryId);
+                onDelete(summaryIdToDelete);
                 const data = await response.json();
                 console.log(data.message);
             } else {
@@ -38,10 +37,10 @@ export const DeleteSummary = ({ summaryId, summaryIdToDelete, onDelete }: Delete
             onClick={deleteSummary}
             className={`absolute top-[-15px] right-[-15px] rounded-full 
                     bg-white w-[32px] h-[32px] flex items-center justify-center
-                    transition-opacity duration-150 ease-in-out
-                ${summaryIdToDelete === summaryId ? "opacity-100" : "opacity-0"}
+                    transition-all duration-150 ease-in-out hover:bg-gray-300
+                    ${summaryIdToDelete === summaryId ? "opacity-100" : "opacity-0"}
             `}>
-            <FaRegTrashAlt className='text-black' />
+            <FiTrash className='text-black text-sm' />
         </button>
     );
 };

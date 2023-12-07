@@ -5,13 +5,16 @@ import Link from 'next/link';
 import React from 'react';
 import { useState } from "react";
 import { DeleteSummary } from './DeleteSummary';
+import { useSummary } from '@/hooks/SummariesContext';
 
-
-export const Summaries = ({ summaries }: { summaries: any }) => {
-    const [summariesList, setSummariesList] = useState<SummaryDoc[]>(summaries);
+export const Summaries = ({ summaries }: { summaries: SummaryDoc[] }) => {
+    const { summariesList, setSummariesList } = useSummary();
     const [summaryIdToDelete, setSummaryIdToDelete] = useState<string | null>(null);
 
-    
+    if (summariesList.length === 0) {
+        setSummariesList(summaries);
+    }
+
     const handleHover = (summaryId: string) => {
         setSummaryIdToDelete(summaryId);
     };
@@ -21,8 +24,8 @@ export const Summaries = ({ summaries }: { summaries: any }) => {
     };
 
     const onDelete = (deletedSummaryId: string) => {
-        setSummariesList(prevSummaries => prevSummaries
-            .filter(summary => summary._id !== deletedSummaryId));
+        setSummariesList((prevSummaries: SummaryDoc[]) => prevSummaries
+            .filter((summary: SummaryDoc) => summary._id !== deletedSummaryId));
     };
 
     return (

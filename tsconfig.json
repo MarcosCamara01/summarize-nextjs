@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/chat/route.ts", "src/helpers/getUserApi.js", "src/app/create/page.tsx", "src/components/account/UpdateButton.tsx", "src/hooks/SidebarContext.js", "src/app/account/page.tsx", "src/components/account/SignOutButton.tsx", "src/components/create/ImageToText.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/chat/route.ts", "src/helpers/getUserApi.js", "src/app/create/page.tsx", "src/components/account/UpdateButton.tsx", "src/hooks/SidebarContext.js", "src/app/account/page.tsx", "src/components/account/SignOutButton.tsx", "src/components/create/ImageToText.jsx", "src/hooks/SummariesContext.ts"],
   "exclude": ["node_modules"]
 }

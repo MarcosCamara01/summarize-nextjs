@@ -29,13 +29,14 @@ export async function POST(request: Request) {
     try {
         await connectDB();
 
-        const { title, summary, userId, inputTokens } = await request.json();
+        const { title, summary, userId, inputTokens, outputTokens } = await request.json();
 
         const summaryToSave = new Summary({
             title,
             summary,
             userId,
-            inputTokens
+            inputTokens,
+            outputTokens
         });
 
         const savedSummary = await summaryToSave.save();
@@ -65,7 +66,7 @@ export async function PUT(request: Request) {
     try {
         await connectDB();
 
-        const { summaryId, title, summary, inputTokens } = await request.json();
+        const { summaryId, title, summary, inputTokens, outputTokens } = await request.json();
 
         const summaryToUpdate = await Summary.findById(summaryId);
 
@@ -83,6 +84,7 @@ export async function PUT(request: Request) {
         if (summary) {
             summaryToUpdate.summary = summary;
             summaryToUpdate.inputTokens = inputTokens;
+            summaryToUpdate.outputTokens = outputTokens;
         }
 
         await summaryToUpdate.save();
