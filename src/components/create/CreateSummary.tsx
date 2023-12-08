@@ -22,13 +22,12 @@ export default function CreateSummary() {
                 const inputTokens = await countTokens(input);
                 const responseOutput = await countTokens(message.content);
 
-                await saveSummary(message.content, session?.user?._id, inputTokens, responseOutput);
+                const response = await saveSummary(message.content, session?.user?._id, inputTokens, responseOutput);
             } catch (error) {
                 console.error(error);
             }
         },
     });
-
 
     useEffect(() => {
         countTokens(input).then((r) => setInputTokens(r))
@@ -64,51 +63,50 @@ export default function CreateSummary() {
                         summary={messagesWithSeparatedTitle[1]}
                     />
                     :
-                    <>
-                        <form className='w-full flex flex-col items-center justify-center gap-6 px-3.5 min-[350px]:px-6 sm:px-0' onSubmit={handleSubmit}>
-                            <textarea
-                                className='w-full max-w-3xl max-h-96 min-h-150 p-1.5 rounded bg-background-secondary border border-solid border-border-primary text-sm '
-                                value={input}
-                                onChange={handleInputChange}
-                            />
 
-                            <div className='w-full max-w-3xl m-auto'>
-                                <div className='w-full h-[38px]'>
-                                    <FileUpload
-                                        setInput={setInput}
-                                    />
-                                </div>
-                                <div></div>
+                    <form className='w-full flex flex-col items-center justify-center gap-6 px-3.5 min-[350px]:px-6 sm:px-0' onSubmit={handleSubmit}>
+                        <textarea
+                            className='w-full max-w-3xl max-h-96 min-h-150 p-1.5 rounded bg-background-secondary border border-solid border-border-primary text-sm '
+                            value={input}
+                            onChange={handleInputChange}
+                        />
+
+                        <div className='w-full max-w-3xl m-auto'>
+                            <div className='w-full h-[38px]'>
+                                <FileUpload
+                                    setInput={setInput}
+                                />
                             </div>
+                            <div></div>
+                        </div>
 
-                            <button type="submit" className='w-40 bg-background-secondary border border-solid border-border-primary rounded py-1 text-sm transition duration-150 ease hover:bg-color-secondary'>
-                                Send
-                            </button>
+                        <button type="submit" className='w-40 bg-background-secondary border border-solid border-border-primary rounded py-1 text-sm transition duration-150 ease hover:bg-color-secondary'>
+                            Send
+                        </button>
 
-                            {inputTokens ? (
-                                inputTokens.error ? (
-                                    <p className="text-red-500">{inputTokens.error.message}</p>
-                                ) : inputTokens.characters && inputTokens.characters >= 1 ?
-                                    (
-                                        <div className="space-y-2 text-lg">
-                                            <div className="flex justify-between">
-                                                <p>Characters</p>
-                                                <p className="text-xl">{inputTokens.characters}</p>
-                                            </div>
-                                            <div className="flex justify-between">
-                                                <p>Words</p>
-                                                <p className="text-xl">{inputTokens.words}</p>
-                                            </div>
-                                            <div className="flex justify-between">
-                                                <p>Tokens</p>
-                                                <p className="text-xl font-bold">{inputTokens.tokens_count}</p>
-                                            </div>
+                        {inputTokens ? (
+                            inputTokens.error ? (
+                                <p className="text-red-500">{inputTokens.error.message}</p>
+                            ) : inputTokens.characters && inputTokens.characters >= 1 ?
+                                (
+                                    <div className="space-y-2 text-lg">
+                                        <div className="flex justify-between">
+                                            <p>Characters</p>
+                                            <p className="text-xl">{inputTokens.characters}</p>
                                         </div>
-                                    )
-                                    : ""
-                            ) : null}
-                        </form>
-                    </>
+                                        <div className="flex justify-between">
+                                            <p>Words</p>
+                                            <p className="text-xl">{inputTokens.words}</p>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <p>Tokens</p>
+                                            <p className="text-xl font-bold">{inputTokens.tokens_count}</p>
+                                        </div>
+                                    </div>
+                                )
+                                : ""
+                        ) : null}
+                    </form>
             }
         </>
     )

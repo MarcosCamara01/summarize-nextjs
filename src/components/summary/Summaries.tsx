@@ -2,7 +2,7 @@
 
 import { SummaryDoc } from '@/models/Summary';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from "react";
 import { DeleteSummary } from './DeleteSummary';
 import { useSummary } from '@/hooks/SummariesContext';
@@ -11,9 +11,11 @@ export const Summaries = ({ summaries }: { summaries: SummaryDoc[] }) => {
     const { summariesList, setSummariesList } = useSummary();
     const [summaryIdToDelete, setSummaryIdToDelete] = useState<string | null>(null);
 
-    if (summariesList.length === 0) {
-        setSummariesList(summaries);
-    }
+    useEffect(() => {
+        if (summariesList.length === 0) {
+            setSummariesList(summaries);
+        }
+    }, [summariesList])
 
     const handleHover = (summaryId: string) => {
         setSummaryIdToDelete(summaryId);
