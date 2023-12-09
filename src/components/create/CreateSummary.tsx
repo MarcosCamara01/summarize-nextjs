@@ -10,15 +10,18 @@ import { useState, useEffect } from "react";
 import { saveSummary } from '@/helpers/saveSummary';
 import { useSummary } from '@/hooks/SummariesContext';
 import { summaryWithTitle } from '@/helpers/summaryWithTitle';
+import { LanguageButton } from './ConfigurationButtons';
 
 export default function CreateSummary() {
     const { data: session } = useSession();
     const [inputTokens, setInputTokens] = useState<null | CountTokensResponse>(null);
+    const [language, setLanguage] = useState<string>("Default");
     const { setSummariesList } = useSummary();
 
     const { messages, input, setInput, handleInputChange, handleSubmit } = useChat({
         body: {
-            apiKey: session?.user?.api
+            apiKey: session?.user?.api,
+            language
         },
         onFinish: async (message) => {
             try {
@@ -37,17 +40,17 @@ export default function CreateSummary() {
         countTokens(input).then((r) => setInputTokens(r))
     }, [input])
 
-    const content = summaryWithTitle(messages[1].content);
+    const content = summaryWithTitle(messages[1]?.content);
 
     return (
         <>
             {
                 messages[1]
-                ?
-                <Frame
-                    summary={content}
-                />
-                :
+                    ?
+                    <Frame
+                        summary={content}
+                    />
+                    :
 
                     <form className='w-full flex flex-col items-center justify-center gap-6 px-3.5 min-[350px]:px-6 sm:px-0' onSubmit={handleSubmit}>
                         <textarea
@@ -55,6 +58,12 @@ export default function CreateSummary() {
                             value={input}
                             onChange={handleInputChange}
                         />
+
+                        <div className='w-full max-w-3xl flex justify-between'>
+                            <LanguageButton
+                                setLanguage={setLanguage}
+                            />
+                        </div>
 
                         <div className='w-full max-w-3xl m-auto'>
                             <div className='w-full h-[38px]'>

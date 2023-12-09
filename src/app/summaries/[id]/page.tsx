@@ -1,4 +1,4 @@
-import Frame from '@/components/frame/Frame'
+import Frame from '@/components/frame/Frame';
 
 export default async function PhotoPage({ params: { id: summaryId } }: { params: { id: string } }) {
     let summary = [];
