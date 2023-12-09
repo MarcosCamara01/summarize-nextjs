@@ -41,14 +41,7 @@ export async function POST(request: Request) {
 
         const savedSummary = await summaryToSave.save();
 
-        console.log(savedSummary);
-
-        return NextResponse.json(
-            {
-                id: savedSummary._id,
-            },
-            { status: 201 }
-        );
+        return NextResponse.json(savedSummary, { status: 201 });
     } catch (error) {
         if (error instanceof mongoose.Error.ValidationError) {
             return NextResponse.json(

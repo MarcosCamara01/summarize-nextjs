@@ -8,10 +8,13 @@ import FileUpload from './FileUpload';
 import { CountTokensResponse, countTokens } from "@/components/count-tokens";
 import { useState, useEffect } from "react";
 import { saveSummary } from '@/helpers/saveSummary';
+import { useSummary } from '@/hooks/SummariesContext';
+import { summaryWithTitle } from '@/helpers/summaryWithTitle';
 
 export default function CreateSummary() {
     const { data: session } = useSession();
     const [inputTokens, setInputTokens] = useState<null | CountTokensResponse>(null);
+    const { setSummariesList } = useSummary();
 
     const { messages, input, setInput, handleInputChange, handleSubmit } = useChat({
         body: {
@@ -23,6 +26,7 @@ export default function CreateSummary() {
                 const responseOutput = await countTokens(message.content);
 
                 const response = await saveSummary(message.content, session?.user?._id, inputTokens, responseOutput);
+                setSummariesList((prevSummariesList: SummaryDoc[]) => [...prevSummariesList, response]);
             } catch (error) {
                 console.error(error);
             }
@@ -33,36 +37,17 @@ export default function CreateSummary() {
         countTokens(input).then((r) => setInputTokens(r))
     }, [input])
 
-    const messagesWithSeparatedTitle = messages.map(m => {
-        if (m.role === 'assistant') {
-            const separator = ':';
-            const separatorIndex = m.content.indexOf(separator);
-
-            if (separatorIndex !== -1) {
-                const title = m.content.slice(0, separatorIndex + 1).trim();
-                const titleWithoutSeparator = title.replace(':', '').trim();
-                const bodyText = m.content.slice(separatorIndex + 1).trim();
-
-                return {
-                    title: titleWithoutSeparator,
-                    summary: bodyText,
-                    userId: session?.user?._id
-                }
-            }
-        }
-
-        return null;
-    }) as SummaryDoc[];
+    const content = summaryWithTitle(messages[1].content);
 
     return (
         <>
             {
                 messages[1]
-                    ?
-                    <Frame
-                        summary={messagesWithSeparatedTitle[1]}
-                    />
-                    :
+                ?
+                <Frame
+                    summary={content}
+                />
+                :
 
                     <form className='w-full flex flex-col items-center justify-center gap-6 px-3.5 min-[350px]:px-6 sm:px-0' onSubmit={handleSubmit}>
                         <textarea
