@@ -13,6 +13,7 @@ export async function GET(request: Request, context: any) {
 
         if (userId) {
             response = await Summary.find({ userId });
+            response.reverse();
         } else if (_id) {
             response = await Summary.findById({ _id });
         }

@@ -45,7 +45,7 @@ export default function CreateSummary() {
     return (
         <>
             {
-                messages[1]
+                messages[1] && messages[1]?.content !== "I'm sorry, but the text you have provided is not valid."
                     ?
                     <Frame
                         summary={content}

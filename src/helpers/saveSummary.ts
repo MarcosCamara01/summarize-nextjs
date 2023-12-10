@@ -6,8 +6,17 @@ import { summaryWithTitle } from "./summaryWithTitle";
 export const saveSummary = async (message: any, userId: string, inputTokens: null | CountTokensResponse, outputTokens: null | CountTokensResponse) => {
     const content = summaryWithTitle(message);
 
+    const inputTokensWithContext = (inputTokens: number | undefined) => {
+        if (inputTokens === undefined || inputTokens=== null) {
+            return 102;
+        } else {
+            return inputTokens + 102;
+        }
+    };
+
     if (content.summary !== "I'm sorry, but the text you have provided is not valid.") {
         try {
+            const totalInputTokens = inputTokensWithContext(inputTokens?.tokens_count)
             const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/summary`, {
                 method: 'POST',
                 headers: {
@@ -17,7 +26,7 @@ export const saveSummary = async (message: any, userId: string, inputTokens: nul
                     title: content.title,
                     summary: content.summary,
                     userId,
-                    inputTokens: inputTokens?.tokens_count,
+                    inputTokens: totalInputTokens,
                     outputTokens: outputTokens?.tokens_count
                 }),
             });
