@@ -7,7 +7,7 @@ import { useState } from "react";
 import { DeleteSummary } from './DeleteSummary';
 import { useSummary } from '@/hooks/SummariesContext';
 
-export const Summaries = ({ summaries }: { summaries: SummaryDoc[] }) => {
+export const Summaries = ({ summaries }: { summaries: SummaryDoc[] | undefined }) => {
     const { summariesList, setSummariesList } = useSummary();
     const [summaryIdToDelete, setSummaryIdToDelete] = useState<string | null>(null);
 

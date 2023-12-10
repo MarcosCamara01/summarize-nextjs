@@ -16,7 +16,7 @@ export default function CreateSummary() {
     const { data: session } = useSession();
     const [inputTokens, setInputTokens] = useState<null | CountTokensResponse>(null);
     const [language, setLanguage] = useState<string>("Default");
-    const { setSummariesList } = useSummary();
+    const { summariesList, setSummariesList } = useSummary();
 
     const { messages, input, setInput, handleInputChange, handleSubmit } = useChat({
         body: {
@@ -29,7 +29,9 @@ export default function CreateSummary() {
                 const responseOutput = await countTokens(message.content);
 
                 const response = await saveSummary(message.content, session?.user?._id, inputTokens, responseOutput);
-                setSummariesList((prevSummariesList: SummaryDoc[]) => [...prevSummariesList, response]);
+                if (response.ok) {
+                    setSummariesList(...summariesList, response);
+                }
             } catch (error) {
                 console.error(error);
             }

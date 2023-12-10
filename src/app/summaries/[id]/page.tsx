@@ -1,20 +1,8 @@
 import Frame from '@/components/frame/Frame';
+import { getSingleSummary } from '@/helpers/getSummaries';
 
-export default async function PhotoPage({ params: { id: summaryId } }: { params: { id: string } }) {
-    let summary = [];
-
-    try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/summary?id=${summaryId}`);
-
-        if (response.ok) {
-            summary = await response.json();
-        } else {
-            console.error('Failed to fetch summaries');
-        }
-        
-    } catch (error) {
-        console.error('Failed to fetch summaries:', error);
-    }
+export default async function SingleSummary({ params: { id: summaryId } }: { params: { id: string } }) {
+    const summary = await getSingleSummary(summaryId);
     
     return (
         <div className="container mx-auto my-10">
