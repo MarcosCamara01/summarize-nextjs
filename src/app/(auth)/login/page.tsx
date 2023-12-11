@@ -92,6 +92,7 @@ const Signin = () => {
         <button
           className="flex py-2 px-4 text-sm	align-middle items-center rounded text-999 bg-black 
           border border-solid border-border-primary transition duration-150 ease hover:bg-color-secondary gap-3"
+          onClick={() => signIn("google")}
         >
           <BiLogoGoogle className="text-2xl" /> Sign in with Google
         </button>

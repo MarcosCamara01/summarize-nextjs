@@ -3,6 +3,7 @@ import User from "@/models/User";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
+import GoogleUser from "@/models/GoogleUser";
 
 export async function POST(request: Request) {
   try {
@@ -65,6 +66,8 @@ export async function PUT(request: Request) {
   try {
     await connectDB();
 
+    let userToUpdate = [];
+
     const { userId, name, email, password, api } = await request.json();
 
     if (password && password.length < 6) {
@@ -73,8 +76,12 @@ export async function PUT(request: Request) {
         { status: 400 }
       );
     }
-    
-    const userToUpdate = await User.findById(userId);
+
+    if (!mongoose.isValidObjectId(userId)) {
+      userToUpdate = await GoogleUser.findOne({ email });
+    } else {
+      userToUpdate = await User.findById(userId);
+    }
 
     if (!userToUpdate) {
       return NextResponse.json(

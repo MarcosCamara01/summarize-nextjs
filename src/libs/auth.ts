@@ -2,10 +2,16 @@ import { connectDB } from "@/libs/mongodb";
 import User from "@/models/User";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
+import GoogleUser from "@/models/GoogleUser";
 
 export const authOptions: NextAuthOptions  = {
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
+    }),
     CredentialsProvider({
       name: "Credentials",
       id: "credentials",
@@ -71,6 +77,28 @@ export const authOptions: NextAuthOptions  = {
           api: token.api,
         }
       };
+    },
+    async signIn({ account, profile, user, credentials }) {
+      try {
+        await connectDB();
+
+        console.log(profile)
+
+        const userExists = await GoogleUser.findOne({ email: profile?.email });
+
+        if (!userExists) {
+          await GoogleUser.create({
+            email: profile?.email,
+            name: profile?.name,
+            image: profile?.image,
+          });
+        }
+
+        return true
+      } catch (error: any) {
+        console.log("Error checking if user exists: ", error.message);
+        return false
+      }
     },
   },
 };

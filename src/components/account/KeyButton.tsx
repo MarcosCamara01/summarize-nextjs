@@ -68,7 +68,7 @@ export function KeyButton({ isSidebarOpen, isMobile, session }: KeyButtonProps) 
                 <button
                     className='w-full h-8 p-1.5 flex items-center gap-3'
                     onClick={() => {
-                        if (session && session.user && session.user.api) {
+                        if (session && session.user) {
                             setToEdit({ field: "api", value: session.user.api });
                         }
                     }}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
+import Image from 'next/image';
 
 interface PersonalButtonProps {
     isSidebarOpen: any;
@@ -43,8 +44,15 @@ export function PersonalButton({ isSidebarOpen, isMobile, session }: PersonalBut
                     className='p-1.5 w-full h-full flex items-center gap-3'
                     onClick={() => setOpen(!open)}
                 >
-                    <div className='bg-white text-black text-xs min-w-[20px] rounded-full h-5 w-5 flex items-center justify-center'>
-                        {firstLetter}
+                    <div className='bg-white text-black text-xs min-w-[20px] rounded-full h-5 w-5 flex items-center justify-center overflow-hidden'>
+                        {session?.user?.image ? 
+                            <Image 
+                                src={session?.user?.image}
+                                alt={session?.user?.name}
+                                width={20}
+                                height={20}
+                            />
+                        : firstLetter}
                     </div>
                     <span className={`text-sm transition-opacity duration-150 delay-100 ease-in-out ${!isMobile ? isSidebarOpen ? "opacity-100 visible" : "opacity-0 invisible" : ""}`}>
                         Personal

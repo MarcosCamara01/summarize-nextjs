@@ -82,7 +82,7 @@ const Signup = () => {
             name="password"
           />
           <button
-          className="w-2/12	border-y border-r border-solid border-border-primary bg-black rounded-r 
+            className="w-2/12	border-y border-r border-solid border-border-primary bg-black rounded-r 
           flex items-center justify-center transition duration-150 ease hover:bg-color-secondary"
             onClick={(e) => {
               e.preventDefault();
@@ -114,7 +114,8 @@ const Signup = () => {
         <button
           className="flex py-2 px-4 text-sm	align-middle items-center rounded text-999 bg-black 
           border border-solid border-border-primary transition duration-150 ease hover:bg-color-secondary gap-3"
-          onClick={() => signIn("google")}>
+          onClick={() => signIn("google")}
+        >
           <BiLogoGoogle className="text-2xl" /> Sign in with Google
         </button>
         <Link href="/login" className="text-sm	text-color-tertiary transition duration-150 ease hover:text-white">Already have an account?</Link>
