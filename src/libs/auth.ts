@@ -82,8 +82,6 @@ export const authOptions: NextAuthOptions  = {
       try {
         await connectDB();
 
-        console.log(profile)
-
         const userExists = await GoogleUser.findOne({ email: profile?.email });
 
         if (!userExists) {
@@ -91,6 +89,7 @@ export const authOptions: NextAuthOptions  = {
             email: profile?.email,
             name: profile?.name,
             image: profile?.image,
+            api: ""
           });
         }
 

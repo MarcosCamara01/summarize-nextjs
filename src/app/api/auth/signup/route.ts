@@ -78,7 +78,7 @@ export async function PUT(request: Request) {
     }
 
     if (!mongoose.isValidObjectId(userId)) {
-      userToUpdate = await GoogleUser.findOne({ email });
+      userToUpdate = await GoogleUser.findOne(email);
     } else {
       userToUpdate = await User.findById(userId);
     }
@@ -108,8 +108,6 @@ export async function PUT(request: Request) {
     }
 
     await userToUpdate.save();
-
-    console.log(userToUpdate);
 
     return NextResponse.json(
       {
