@@ -31,7 +31,6 @@ const Signup = () => {
         email: formData.get("email"),
         password: formData.get("password"),
         name: formData.get("name"),
-        api: formData.get("api"),
       });
 
       const res = await signIn("credentials", {
@@ -51,7 +50,7 @@ const Signup = () => {
   };
 
   return (
-    <section className="w-full min-h-[78vh] flex items-center justify-center">
+    <section className="w-full min-h-creen flex items-center justify-center">
       <form onSubmit={handleSubmit} className="p-6 xs:p-10 w-full max-w-350 flex flex-col justify-between items-center gap-2.5	
         border border-solid border-border-primary bg-background-secondary rounded">
         {error && <div className="">{error}</div>}
@@ -92,14 +91,6 @@ const Signup = () => {
             {showPassword ? <BiSolidHide /> : <BiSolidShow />}
           </button>
         </div>
-
-        <label className={labelStyles}>API OpenAI:</label>
-        <input
-          type="text"
-          placeholder="API OpenAI (not required)"
-          className="w-full h-8 border border-solid border-border-primary py-1 px-2.5 rounded bg-black text-13"
-          name="api"
-        />
 
         <button className="w-full bg-black border border-solid border-border-primary py-1.5 mt-2.5 rounded
         transition duration-150 ease hover:bg-color-secondary text-13">

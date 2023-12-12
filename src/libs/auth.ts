@@ -4,7 +4,7 @@ import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
-import GoogleUser from "@/models/GoogleUser";
+import UserKey from "@/models/UserKey";
 
 export const authOptions: NextAuthOptions  = {
   providers: [
@@ -53,16 +53,11 @@ export const authOptions: NextAuthOptions  = {
         token.email = session.email;
       }
 
-      if (trigger === "update" && session?.api) {
-        token.api = session.api;
-      }
-
       if (user) {
         const u = user as unknown as any;
         return {
           ...token,
           id: u.id,
-          api: u.api,
         };
       }
       return token;
@@ -74,7 +69,6 @@ export const authOptions: NextAuthOptions  = {
           ...session.user,
           _id: token.id,
           name: token.name,
-          api: token.api,
         }
       };
     },
@@ -82,16 +76,14 @@ export const authOptions: NextAuthOptions  = {
       try {
         await connectDB();
 
-        const userExists = await GoogleUser.findOne({ email: profile?.email });
+        const userExists = await UserKey.findOne({ email: user?.email });
 
         if (!userExists) {
-          await GoogleUser.create({
-            email: profile?.email,
-            name: profile?.name,
-            image: profile?.image,
-            api: ""
+          await UserKey.create({
+            email: user?.email,
+            api: "empty"
           });
-        }
+        } 
 
         return true
       } catch (error: any) {

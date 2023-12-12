@@ -3,16 +3,14 @@
 import { SessionProvider } from "next-auth/react";
 import { SidebarProvider } from '../hooks/SidebarContext';
 import { SummariesProvider } from '../hooks/SummariesContext';
-import { Session } from "next-auth";
 
 interface Props {
   children: React.ReactNode;
-  session: Session
 }
 
-export default function Providers({ children, session }: Props) {
+export default function Providers({ children }: Props) {
   return (
-    <SessionProvider session={session}>
+    <SessionProvider>
       <SidebarProvider>
         <SummariesProvider>
           {children}

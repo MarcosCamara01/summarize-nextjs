@@ -4,8 +4,6 @@ export interface UserDocument extends Document {
   email: string;
   password: string;
   name: string;
-  api: string;
-  image: string
   createdAt: Date;
   updatedAt: Date;
 }
@@ -31,11 +29,7 @@ const UserSchema = new Schema<UserDocument>(
       required: [true, 'Fullname is required'],
       minLength: [3, 'fullname must be at least 3 characters'],
       maxLength: [25, 'fullname must be at most 25 characters'],
-    },
-    api: {
-      type: String,
-      required: [true, 'API key is required'],
-    },
+    }
   },
   {
     timestamps: true,
