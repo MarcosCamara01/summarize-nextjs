@@ -50,7 +50,7 @@ const Signup = () => {
   };
 
   return (
-    <section className="w-full min-h-creen flex items-center justify-center">
+    <section className="w-full min-h-screen flex items-center justify-center">
       <form onSubmit={handleSubmit} className="p-6 xs:p-10 w-full max-w-350 flex flex-col justify-between items-center gap-2.5	
         border border-solid border-border-primary bg-background-secondary rounded">
         {error && <div className="">{error}</div>}

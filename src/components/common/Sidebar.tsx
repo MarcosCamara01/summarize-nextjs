@@ -116,7 +116,6 @@ export const Sidebar = () => {
                                     <KeyButton
                                         isSidebarOpen={isSidebarOpen}
                                         isMobile={isMobile}
-                                        session={session}
                                     />
                                     <PersonalButton
                                         isSidebarOpen={isSidebarOpen}

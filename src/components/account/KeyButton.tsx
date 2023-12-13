@@ -3,8 +3,8 @@ import { RiLockLine } from "react-icons/ri";
 import { getUserKey, updateUserKey } from '@/helpers/UserKeyFunctions';
 
 interface KeyButtonProps {
-    isSidebarOpen: any;
-    isMobile: any;
+    isSidebarOpen: boolean;
+    isMobile: boolean;
 }
 
 export function KeyButton({ isSidebarOpen, isMobile }: KeyButtonProps) {
@@ -85,12 +85,12 @@ export function KeyButton({ isSidebarOpen, isMobile }: KeyButtonProps) {
                             className='bg-black border border-solid border-border-primary rounded overflow-hidden'
                             ref={ref}
                         >
-                            <h4 className='px-5 pt-5 pb-3 text-base font-semibold'>Change your API key</h4>
+                            <h4 className='px-5 pt-5 pb-3 text-base font-semibold'>Your API key</h4>
                             <div className='mx-5 mb-3'>
                                 <input
                                     type="text"
                                     className='w-3/4 p-1.5 bg-background-secondary border-t border-b border-l border-solid border-border-primary rounded-l-sm text-13	'
-                                    value={toEdit}
+                                    value={toEdit === "empty" ? "" : toEdit}
                                     onChange={(e) => setToEdit(e.target.value)}
                                 />
                                 <button
