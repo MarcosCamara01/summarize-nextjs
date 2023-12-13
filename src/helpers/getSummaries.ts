@@ -8,9 +8,9 @@ import { SummaryDoc } from "@/models/Summary";
 export const getSummaries = async (): Promise<SummaryDoc[] | undefined> => {
     try {
         const session: Session | null = await getServerSession(authOptions);
-        const userId = session?.user?._id;
+        const userEmail = session?.user?.email;
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/summary?userId=${userId}`, { cache: 'no-store' });
+        const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/summary?userEmail=${userEmail}`, { cache: 'no-store' });
 
         if (response.ok) {
             const summaries: SummaryDoc[] = await response.json();

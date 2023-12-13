@@ -3,7 +3,7 @@
 import { CountTokensResponse } from "@/components/count-tokens";
 import { summaryWithTitle } from "./summaryWithTitle";
 
-export const saveSummary = async (message: any, userId: string, inputTokens: null | CountTokensResponse, outputTokens: null | CountTokensResponse) => {
+export const saveSummary = async (message: any, userEmail: string | undefined, inputTokens: null | CountTokensResponse, outputTokens: null | CountTokensResponse) => {
     const content = summaryWithTitle(message);
 
     const inputTokensWithContext = (inputTokens: number | undefined) => {
@@ -25,7 +25,7 @@ export const saveSummary = async (message: any, userId: string, inputTokens: nul
                 body: JSON.stringify({
                     title: content.title,
                     summary: content.summary,
-                    userId,
+                    userEmail,
                     inputTokens: totalInputTokens,
                     outputTokens: outputTokens?.tokens_count
                 }),

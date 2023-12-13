@@ -3,7 +3,6 @@
 import Frame from '@/components/frame/Frame';
 import { useChat } from 'ai/react';
 import { useSession } from 'next-auth/react';
-import { SummaryDoc } from "@/models/Summary"
 import FileUpload from './FileUpload';
 import { CountTokensResponse, countTokens } from "@/components/count-tokens";
 import { useState, useEffect } from "react";
@@ -11,16 +10,18 @@ import { saveSummary } from '@/helpers/saveSummary';
 import { useSummary } from '@/hooks/SummariesContext';
 import { summaryWithTitle } from '@/helpers/summaryWithTitle';
 import { LanguageButton } from './ConfigurationButtons';
+import { getUserKey } from '@/helpers/UserKey';
 
 export default function CreateSummary() {
     const { data: session } = useSession();
     const [inputTokens, setInputTokens] = useState<null | CountTokensResponse>(null);
     const [language, setLanguage] = useState<string>("Default");
+    const [apiKey, setApiKey] = useState<string | undefined>();
     const { summariesList, setSummariesList } = useSummary();
 
     const { messages, input, setInput, handleInputChange, handleSubmit } = useChat({
         body: {
-            apiKey: session?.user?.api,
+            apiKey,
             language
         },
         onFinish: async (message) => {
@@ -28,7 +29,7 @@ export default function CreateSummary() {
                 const inputTokens = await countTokens(input);
                 const responseOutput = await countTokens(message.content);
 
-                const response = await saveSummary(message.content, session?.user?._id, inputTokens, responseOutput);
+                const response = await saveSummary(message.content, session?.user?.email, inputTokens, responseOutput);
                 if (response.ok) {
                     setSummariesList(...summariesList, response);
                 }
@@ -40,7 +41,19 @@ export default function CreateSummary() {
 
     useEffect(() => {
         countTokens(input).then((r) => setInputTokens(r))
-    }, [input])
+    }, [input]);
+
+    useEffect(() => {
+        const userKey = async () => {
+            try {
+                const userKey = await getUserKey()
+                setApiKey(userKey);
+            } catch (error) {
+                console.error(error)
+            }
+        }
+        userKey();
+    }, []);
 
     const content = summaryWithTitle(messages[1]?.content);
 

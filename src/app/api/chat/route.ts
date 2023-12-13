@@ -14,6 +14,7 @@ const textLanguage = (language: string) => {
 export async function POST(req: Request) {
     try {
         const { messages, apiKey, language } = await req.json();
+        console.log(apiKey)
 
         const config = new Configuration({
             apiKey: apiKey

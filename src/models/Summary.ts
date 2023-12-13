@@ -3,7 +3,7 @@ import { Schema, model, Document, models } from "mongoose";
 export interface SummaryDoc extends Document {
   title: string;
   summary: string;
-  userId: string;
+  userEmail: string;
   inputTokens: number;
   outputTokens: number;
 }
@@ -17,7 +17,7 @@ const SummarySchema = new Schema<SummaryDoc>({
     type: String,
     required: true
   },
-  userId: {
+  userEmail: {
     type: String,
     required: true
   },

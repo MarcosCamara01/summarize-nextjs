@@ -8,11 +8,11 @@ export async function GET(request: Request, context: any) {
         await connectDB();
         let response = [];
         const { searchParams } = new URL(request.url);
-        const userId = searchParams.get('userId');
+        const userEmail = searchParams.get('userEmail');
         const _id = searchParams.get('id');
 
-        if (userId) {
-            response = await Summary.find({ userId });
+        if (userEmail) {
+            response = await Summary.find({ userEmail });
             response.reverse();
         } else if (_id) {
             response = await Summary.findById({ _id });
@@ -30,12 +30,12 @@ export async function POST(request: Request) {
     try {
         await connectDB();
 
-        const { title, summary, userId, inputTokens, outputTokens } = await request.json();
+        const { title, summary, userEmail, inputTokens, outputTokens } = await request.json();
 
         const summaryToSave = new Summary({
             title,
             summary,
-            userId,
+            userEmail,
             inputTokens,
             outputTokens
         });

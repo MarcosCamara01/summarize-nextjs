@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { RiLockLine } from "react-icons/ri";
-import { getUserKey, updateUserKey } from '@/helpers/UserKeyFunctions';
+import { getUserKey, updateUserKey } from '@/helpers/UserKey';
 
 interface KeyButtonProps {
     isSidebarOpen: boolean;
@@ -56,6 +56,7 @@ export function KeyButton({ isSidebarOpen, isMobile }: KeyButtonProps) {
             console.error(error);
         }
     };
+
     return (
         <>
             <li className='rounded w-full transition duration-150 ease hover:bg-color-secondary'>
