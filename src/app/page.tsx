@@ -6,17 +6,23 @@ export default async function Home() {
   const session = await getServerSession(authOptions);
 
   return (
-    <section className="w-full min-h-[79vh] flex flex-col items-center justify-center">
-      <h1>This is the main page</h1>
+    <section className="w-full min-h-[100vh] flex flex-col items-center justify-center">
       {
-        session !== null ? <pre>{JSON.stringify(session, null, 2)}</pre>
+        session !== null ?
+          <>
+            <h1>This is the main page for authenticated users</h1>
+            <pre>{JSON.stringify(session, null, 2)}</pre>
+          </>
           :
-          <Link
-            href="/login"
-            className="text-sm text-999 mt-7 transition duration-150 ease hover:text-white"
-          >
-            Login
-          </Link>
+          <>
+            <h1>This is the main page for unauthenticated users</h1>
+            <Link
+              href="/login"
+              className="text-sm text-999 mt-7 transition duration-150 ease hover:text-white"
+            >
+              Login
+            </Link>
+          </>
       }
     </section>
   )
