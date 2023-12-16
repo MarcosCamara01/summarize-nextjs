@@ -1,9 +1,12 @@
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/libs/auth";
 import Link from "next/link";
+import { isMobileDevice } from '@/utils/responsive';
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
+  const mobile = isMobileDevice();
+  console.log(mobile)
 
   return (
     <section className="w-full min-h-[100vh] flex flex-col items-center justify-center">

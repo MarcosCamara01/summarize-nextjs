@@ -1,13 +1,15 @@
 "use client"
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useClientMediaQuery } from './useClientMediaQuery';
+import { useResponsive } from 'antd-style';
 
 const SidebarContext = createContext();
 
 export const SidebarProvider = ({ children }) => {
     const [isSidebarOpen, setSidebarOpen] = useState(true);
-    const isMobile = useClientMediaQuery('(max-width: 640px)');
+    const { mobile } = useResponsive();
+
+    const isMobile = !!mobile;
 
     useEffect(() => {
         if (isMobile) {
