@@ -1,10 +1,11 @@
-'use client'
+'use client';
 
+import React, { PropsWithChildren, memo } from 'react';
 import { useSidebar } from "@/hooks/SidebarContext";
 import { Sidebar } from '@/components/common/desktop/Sidebar';
 
-export default function FlexMain({ children }: { children: React.ReactNode }) {
-    const { isSidebarOpen, isMobile } = useSidebar();
+export default memo(({ children }: PropsWithChildren) => {
+    const { isSidebarOpen } = useSidebar();
 
     return (
         <div
@@ -12,11 +13,10 @@ export default function FlexMain({ children }: { children: React.ReactNode }) {
         >
             <Sidebar />
             <main
-                className={`min-h-screen absolute top-0 right-0 z-[-1]
-                ${!isMobile ? isSidebarOpen ? "main-sbopen" : "main-full" : "w-full"}`}
+                className={`min-h-screen absolute top-0 right-0 z-[-1] ${isSidebarOpen ? "main-sbopen" : "main-full"}`}
             >
                 {children}
             </main>
         </div>
     )
-}
+});

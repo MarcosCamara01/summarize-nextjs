@@ -7,20 +7,13 @@ const SidebarContext = createContext();
 
 export const SidebarProvider = ({ children }) => {
     const [isSidebarOpen, setSidebarOpen] = useState(true);
+    const [isNavbarOpen, setisNavbarOpen] = useState(false);
     const { mobile } = useResponsive();
 
     const isMobile = !!mobile;
 
-    useEffect(() => {
-        if (isMobile) {
-            setSidebarOpen(false);
-        } else {
-            setSidebarOpen(true);
-        }
-    }, [isMobile, setSidebarOpen]);
-
     return (
-        <SidebarContext.Provider value={{ isSidebarOpen, setSidebarOpen, isMobile }}>
+        <SidebarContext.Provider value={{ isSidebarOpen, setSidebarOpen, isNavbarOpen, setisNavbarOpen, isMobile }}>
             {children}
         </SidebarContext.Provider>
     );

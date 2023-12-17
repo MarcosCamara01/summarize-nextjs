@@ -3,12 +3,12 @@
 import React from 'react';
 import { useSidebar } from '@/hooks/SidebarContext';
 import { useSession } from 'next-auth/react';
-import { RiMenu4Fill, RiCloseFill, RiBookReadLine } from "react-icons/ri";
+import { RiBookReadLine } from "react-icons/ri";
 import { PiBrain } from "react-icons/pi";
 import { FaRegLightbulb } from "react-icons/fa";
 import Link from 'next/link';
-import { PersonalButton } from '../account/PersonalButton';
-import { KeyButton } from '../account/KeyButton';
+import { PersonalButton } from '../../account/PersonalButton';
+import { KeyButton } from '../../account/KeyButton';
 
 export const Sidebar = () => {
     const { isSidebarOpen, setSidebarOpen, isMobile } = useSidebar();
@@ -18,66 +18,15 @@ export const Sidebar = () => {
         setSidebarOpen(!isSidebarOpen);
     };
 
-    const toggleMobile = () => {
-        if (isMobile) {
-            toggleSidebar();
-        }
-    };
-
     const linksData = [
         { path: '/create', name: 'Create', icon: <FaRegLightbulb className="text-xl min-w-[20px]" /> },
         { path: '/summaries', name: 'Summaries', icon: <RiBookReadLine className="text-xl min-w-[20px]" /> },
     ];
 
-    const sidebarButton = () => {
-        if (isMobile !== null) {
-            if (!isMobile) {
-                return (
-                    <button
-                        className={`fixed top-[45%] w-8 h-[72px] flex items-center btn-sidebar ${isSidebarOpen ? "left-[200px]" : "left-[60px]"}`}
-                        onClick={toggleSidebar}
-                    >
-                        <div className='h-8 w-8 flex flex-col items-center'>
-                            <div className={`h-4 w-1 rounded-full bg-white transition duration-150 ease ${isSidebarOpen ? "btn-close-top" : "btn-open-top"}`}></div>
-                            <div className={`h-4 w-1 rounded-full bg-white transition duration-150 ease ${isSidebarOpen ? "btn-close-bottom" : "btn-open-bottom"}`}></div>
-                        </div>
-                    </button>
-                )
-            } else {
-                return (
-                    <header className='fixed top-0 p-4 w-full flex items-center justify-between z-10 bg-black border-b border-solid border-border-primary'>
-                        <Link href="https://platform.openai.com/" target='_blank'>
-                            <PiBrain
-                                className="text-3xl"
-                            />
-                        </Link>
-
-                        <button onClick={toggleSidebar}>
-                            {
-                                isSidebarOpen ?
-                                    <RiCloseFill
-                                        className="text-2xl"
-                                    />
-                                    :
-                                    <RiMenu4Fill
-                                        className="text-2xl"
-                                    />
-                            }
-                        </button>
-                    </header>
-                );
-            }
-        }
-    }
-
     return (
         <>
-            <div className={`bg-black py-5 px-3.5 z-10 border-r border-solid border-border-primary fixed h-full sidebar
-                ${!isMobile
-                    ?
-                    isSidebarOpen ? 'sidebar-open' : 'sidebar-close'
-                    :
-                    `h-full w-full transition duration-100 ease ${isSidebarOpen ? "translate-x-0" : "translate-x-hide overflow-hidden"}`}`}>
+            <div className={`bg-black py-5 px-3.5 z-10 border-r border-solid border-border-primary fixed h-full
+                ${isSidebarOpen ? 'sidebar-open' : 'sidebar-close'}`}>
                 <nav className='flex flex-col justify-between items-center h-full'>
                     <ul className='w-full flex flex-col gap-2'>
                         <li className='mb-5'>
@@ -91,11 +40,10 @@ export const Sidebar = () => {
                             <li key={index} className='h-8 rounded transition duration-150 ease hover:bg-color-secondary'>
                                 <Link
                                     href={link.path}
-                                    onClick={toggleMobile}
                                 >
                                     <div className='h-8 p-1.5 flex items-center gap-3'>
                                         {link.icon}
-                                        <span className={`text-sm transition-opacity duration-150 delay-100 ease-in-out ${!isMobile ? isSidebarOpen ? "opacity-100 visible" : "opacity-0 invisible" : ""}`}>
+                                        <span className={`text-sm transition-opacity duration-150 delay-100 ease-in-out ${isSidebarOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}>
                                             {link.name}
                                         </span>
                                     </div>
@@ -128,7 +76,15 @@ export const Sidebar = () => {
                 </nav>
             </div>
 
-            {sidebarButton()}
+            <button
+                className={`fixed top-[45%] w-8 h-[72px] flex items-center btn-sidebar ${isSidebarOpen ? "left-[200px]" : "left-[60px]"}`}
+                onClick={toggleSidebar}
+            >
+                <div className='h-8 w-8 flex flex-col items-center'>
+                    <div className={`h-4 w-1 rounded-full bg-white transition duration-150 ease ${isSidebarOpen ? "btn-close-top" : "btn-open-top"}`}></div>
+                    <div className={`h-4 w-1 rounded-full bg-white transition duration-150 ease ${isSidebarOpen ? "btn-close-bottom" : "btn-open-bottom"}`}></div>
+                </div>
+            </button>
         </>
     );
 };

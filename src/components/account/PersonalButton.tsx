@@ -4,8 +4,8 @@ import { signOut } from "next-auth/react";
 import Image from 'next/image';
 
 interface PersonalButtonProps {
-    isSidebarOpen: any;
-    isMobile: any;
+    isSidebarOpen: boolean;
+    isMobile: boolean;
     session: Session | null;
 }
 

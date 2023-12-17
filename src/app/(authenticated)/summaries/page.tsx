@@ -1,24 +1,18 @@
-import React from 'react';
-import { Summaries } from '@/components/summary/Summaries';
-import { Title } from '@/components/common/Title';
-import { getSummaries } from '@/helpers/getSummaries';
+import { isMobileDevice } from '@/utils/responsive';
 
-const SummariesPage = async () => {
-  const summaries = await getSummaries();
+import DesktopPage from './(desktop)';
+import MobilePage from './(mobile)';
+
+const SummariesPage = () => {
+  const mobile = isMobileDevice();
+
+  const Page = mobile ? MobilePage : DesktopPage;
 
   return (
     <>
-      <Title
-        title='Your summaries'
-      />
-
-      <section className='py-12 px-3.5 min-[350px]:px-6 sm:px-12'>
-        <Summaries
-          summaries={summaries}
-        />
-      </section>
+      <Page />
     </>
-  )
-}
+  );
+};
 
 export default SummariesPage;

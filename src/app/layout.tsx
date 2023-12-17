@@ -22,10 +22,10 @@ export default async function RootLayout(props: { children: React.ReactNode, mod
         <body className={GeistSans.className}>
           {
             session !== null ?
-              <FlexMain>
+              <>
                 {props.children}
                 {props.modal}
-              </FlexMain>
+              </>
               :
               <>
                 <Navbar />

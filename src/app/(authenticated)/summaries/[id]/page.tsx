@@ -1,14 +1,18 @@
-import { Summary } from '@/components/summary/Summary';
-import { getSingleSummary } from '@/helpers/getSummaries';
+import { isMobileDevice } from '@/utils/responsive';
+
+import DesktopPage from './(desktop)';
+import MobilePage from './(mobile)';
 
 export default async function SingleSummary({ params: { id: summaryId } }: { params: { id: string } }) {
-    const summary = await getSingleSummary(summaryId);
-    
+    const mobile = isMobileDevice();
+
+    const Page = mobile ? MobilePage : DesktopPage;
+
     return (
-        <section className="w-full py-12 px-3.5 min-[350px]:px-6 sm:px-12 flex justify-center mt-16 sm:mt-0">
-            <div className="max-w-5xl mx-auto">
-                <Summary summary={summary} />
-            </div>
-        </section>
-    )
+        <>
+            <Page
+                summaryId={summaryId}
+            />
+        </>
+    );
 }
