@@ -1,17 +1,16 @@
-import { Title } from '@/components/common/Title';
-import CreateSummary from '@/components/create/CreateSummary';
+import { isMobileDevice } from '@/utils/responsive';
+
+import DesktopPage from './(desktop)';
+import MobilePage from './(mobile)';
 
 export default function Summarize() {
+    const mobile = isMobileDevice();
+
+    const Page = mobile ? MobilePage : DesktopPage;
 
     return (
         <>
-            <Title
-                title='Create a summary'
-            />
-
-            <section className="w-full min-h-[87vh] sm:min-h-[94vh] flex flex-col items-center justify-center">
-                <CreateSummary />
-            </section>
+            <Page />
         </>
-    )
-}
+    );
+};

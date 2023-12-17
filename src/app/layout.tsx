@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans';
 import Providers from "./Providers";
-import FlexMain from '@/components/common/FlexMain';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/libs/auth";
 
