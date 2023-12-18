@@ -77,7 +77,7 @@ export const NavbarAuth = () => {
                 </nav>
             </div>
 
-            <header className='fixed top-0 p-4 w-full flex items-center justify-between z-10 bg-black border-b border-solid border-border-primary'>
+            <header className='absolute top-0 p-4 w-full flex items-center justify-between z-10 bg-black border-b border-solid border-border-primary'>
                 <Link href="https://platform.openai.com/" target='_blank'>
                     <PiBrain
                         className="text-3xl"

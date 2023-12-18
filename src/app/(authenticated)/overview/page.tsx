@@ -1,7 +1,18 @@
-import React from 'react'
+import { isMobileDevice } from '@/utils/responsive';
 
-export const Overview = () => {
+import DesktopPage from './(desktop)';
+import MobilePage from './(mobile)';
+
+const Overview = () => {
+  const mobile = isMobileDevice();
+
+  const Page = mobile ? MobilePage : DesktopPage;
+
   return (
-    <div>Overview</div>
-  )
-}
+    <>
+      <Page />
+    </>
+  );
+};
+
+export default Overview;

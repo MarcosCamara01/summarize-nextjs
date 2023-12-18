@@ -77,7 +77,7 @@ export const Sidebar = () => {
             </div>
 
             <button
-                className={`fixed top-[45%] w-8 h-[72px] flex items-center btn-sidebar ${isSidebarOpen ? "left-[200px]" : "left-[60px]"}`}
+                className={`fixed z-10 top-[45%] w-8 h-[72px] flex items-center btn-sidebar ${isSidebarOpen ? "left-[200px]" : "left-[60px]"}`}
                 onClick={toggleSidebar}
             >
                 <div className='h-8 w-8 flex flex-col items-center'>
