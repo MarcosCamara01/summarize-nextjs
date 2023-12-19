@@ -2,7 +2,7 @@ import React from 'react';
 import { Title } from '@/components/common/Title';
 import Layout from '../../../../layout/layout.mobile';
 import UserKey from '@/models/UserKey';
-import { NewUser } from '@/components/account/NewUser';
+import { NewKey } from '@/components/account/NewKey';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/libs/auth";
 
@@ -20,7 +20,7 @@ const MobilePage = async () => {
             {
                 !userExists ?
                     <div>
-                        <NewUser
+                        <NewKey
                             isMobile={true}
                         />
                     </div>

@@ -4,7 +4,7 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/libs/auth";
 import Layout from '../../../../layout/layout.desktop';
 import UserKey from '@/models/UserKey';
-import { NewUser } from '@/components/account/NewUser';
+import { NewKey } from '@/components/account/NewKey';
 
 const DesktopPage = async () => {
     let userExists = [];
@@ -20,7 +20,7 @@ const DesktopPage = async () => {
             {
                 !userExists ?
                     <div>
-                        <NewUser 
+                        <NewKey 
                             isMobile={false}
                         />
                     </div>

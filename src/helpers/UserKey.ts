@@ -59,23 +59,23 @@ export const updateUserKey = async (apiKey: string | undefined): Promise<number 
 }
 
 export const createUserKey = async (apiKey: string | undefined) => {
-    if (apiKey !== undefined) {
-        try {
-            await connectDB();
-
-            const session: Session | null = await getServerSession(authOptions);
-            const email = session?.user?.email;
-
-            const response = await UserKey.create({
-                email: email,
-                apiKey: apiKey
-            });
-            
-            return response.status;
-        } catch (error) {
-            console.error(error)
+    try {
+        if (apiKey === undefined) {
+            throw new Error('API Key is undefined');
         }
-    } else {
-        return 400;
+
+        await connectDB();
+
+        const session: Session | null = await getServerSession(authOptions);
+        const email = session?.user?.email;
+
+        const response = await UserKey.create({
+            email: email,
+            apiKey: apiKey
+        });
+
+        return response.status;
+    } catch (error) {
+        console.error(error)
     }
 }
