@@ -3,7 +3,8 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/libs/auth";
 import { Session } from "next-auth";
-import { UserKeyDocument } from "@/models/UserKey";
+import UserKey, { UserKeyDocument } from "@/models/UserKey";
+import { connectDB } from "@/libs/mongodb";
 
 export const getUserKey = async (): Promise<string | undefined> => {
     try {
@@ -17,7 +18,7 @@ export const getUserKey = async (): Promise<string | undefined> => {
             if (userKey) {
                 return userKey.apiKey;
             } else {
-                return ""
+                return "empty"
             }
         } else {
             console.error('Failed to fetch userKey');
@@ -54,5 +55,27 @@ export const updateUserKey = async (apiKey: string | undefined): Promise<number 
         }
     } catch (error) {
         console.error('Failed to fetch userKey:', error);
+    }
+}
+
+export const createUserKey = async (apiKey: string | undefined) => {
+    if (apiKey !== undefined) {
+        try {
+            await connectDB();
+
+            const session: Session | null = await getServerSession(authOptions);
+            const email = session?.user?.email;
+
+            const response = await UserKey.create({
+                email: email,
+                apiKey: apiKey
+            });
+            
+            return response.status;
+        } catch (error) {
+            console.error(error)
+        }
+    } else {
+        return 400;
     }
 }

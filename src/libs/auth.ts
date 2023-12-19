@@ -4,7 +4,6 @@ import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
-import UserKey from "@/models/UserKey";
 
 export const authOptions: NextAuthOptions  = {
   providers: [
@@ -71,25 +70,6 @@ export const authOptions: NextAuthOptions  = {
           name: token.name,
         }
       };
-    },
-    async signIn({ account, profile, user, credentials }) {
-      try {
-        await connectDB();
-
-        const userExists = await UserKey.findOne({ email: user?.email });
-
-        if (!userExists) {
-          await UserKey.create({
-            email: user?.email,
-            api: "empty"
-          });
-        } 
-
-        return true
-      } catch (error: any) {
-        console.log("Error checking if user exists: ", error.message);
-        return false
-      }
     },
   },
 };
