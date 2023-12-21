@@ -3,9 +3,11 @@
 import { createUserKey } from '@/helpers/UserKey';
 import React, { useState } from 'react';
 import FixedComponent from '../common/FixedComponent';
+import { useRouter } from 'next/navigation';
 
 export const NewKey = ({ isMobile }: { isMobile: boolean }) => {
     const [apiKey, setApiKey] = useState<string | undefined>(undefined);
+    const router = useRouter();
 
     const handleCreate = async (e: React.SyntheticEvent<EventTarget>) => {
         e.preventDefault();
@@ -13,7 +15,8 @@ export const NewKey = ({ isMobile }: { isMobile: boolean }) => {
 
             const response = await createUserKey(apiKey)
 
-            if (response === 200) {
+            if (response) {
+                router.push('/overview');
                 setApiKey(undefined);
             }
 
@@ -25,8 +28,8 @@ export const NewKey = ({ isMobile }: { isMobile: boolean }) => {
     return (
         <>
             <div className='h-[100vh] md:mt-0 md:h-sreen w-full block md:flex itemms-center justify-center relative'>
-                <h1 
-                className='absolute top-[54%] md:top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2
+                <h1
+                    className='absolute top-[54%] md:top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2
                  text-center text-3xl font-bold bg-black px-5 py-2 rounded border border-solid border-border-primary'
                 >
                     ¿Qué vas a elegir?
@@ -55,7 +58,6 @@ export const NewKey = ({ isMobile }: { isMobile: boolean }) => {
                 apiKey={apiKey}
                 setApiKey={setApiKey}
             >
-
                 <h4 className='px-5 pt-5 pb-3 text-base font-semibold'>Add your API key</h4>
                 <div className='mx-5 mb-3'>
                     <input
@@ -72,8 +74,6 @@ export const NewKey = ({ isMobile }: { isMobile: boolean }) => {
                     </button>
                 </div>
             </FixedComponent>
-
-
         </>
     );
 };

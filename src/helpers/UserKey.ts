@@ -6,7 +6,7 @@ import { Session } from "next-auth";
 import UserKey, { UserKeyDocument } from "@/models/UserKey";
 import { connectDB } from "@/libs/mongodb";
 
-export const getUserKey = async (): Promise<string | undefined> => {
+export const getUserKey = async (): Promise<UserKeyDocument | undefined> => {
     try {
         const session: Session | null = await getServerSession(authOptions);
         const email = session?.user?.email;
@@ -16,12 +16,13 @@ export const getUserKey = async (): Promise<string | undefined> => {
         if (response.ok) {
             const userKey: UserKeyDocument = await response.json();
             if (userKey) {
-                return userKey.apiKey;
+                return userKey;
             } else {
-                return "empty"
+                return undefined;
             }
         } else {
             console.error('Failed to fetch userKey');
+            return undefined;
         }
     } catch (error) {
         console.error('Failed to fetch userKey:', error);
@@ -72,10 +73,16 @@ export const createUserKey = async (apiKey: string | undefined) => {
         const response = await UserKey.create({
             email: email,
             apiKey: apiKey
-        });
+        }); 
 
-        return response.status;
+        const simplifiedResponse = {
+            email: response.email,
+            apiKey: response.apiKey,
+        };
+        
+        return simplifiedResponse;
     } catch (error) {
-        console.error(error)
+        console.error(error);
+        throw error;
     }
 }

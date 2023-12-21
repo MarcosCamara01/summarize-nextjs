@@ -34,7 +34,7 @@ export function KeyButton({ isSidebarOpen, isMobile }: KeyButtonProps) {
                     onClick={async () => {
                         const userKey = await getUserKey()
                         if (userKey) {
-                            setApiKey(userKey);
+                            setApiKey(userKey.apiKey);
                         }
                     }}
                 >

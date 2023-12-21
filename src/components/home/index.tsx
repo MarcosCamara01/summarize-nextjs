@@ -1,6 +1,6 @@
 'use client';
 
-import { Loader } from "./Loader";
+import { Loader } from "../common/Loader";
 
 const AppInitializing = () => {
 
