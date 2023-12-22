@@ -41,7 +41,7 @@ export function KeyButton({ isSidebarOpen, isMobile }: KeyButtonProps) {
                     <RiLockLine className="text-xl min-w-[20px]" />
                     <span
                         className={`text-sm transition-opacity duration-150 delay-100 ease-in-out 
-                                    ${!isMobile ? isSidebarOpen ? "opacity-100 visible" : "opacity-0 invisible" : ""}`}
+                                    ${isSidebarOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
                     >
                         Your API key
                     </span>

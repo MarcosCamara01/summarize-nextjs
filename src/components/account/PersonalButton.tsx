@@ -5,11 +5,10 @@ import Image from 'next/image';
 
 interface PersonalButtonProps {
     isSidebarOpen: boolean;
-    isMobile: boolean;
     session: Session | null;
 }
 
-export function PersonalButton({ isSidebarOpen, isMobile, session }: PersonalButtonProps) {
+export function PersonalButton({ isSidebarOpen, session }: PersonalButtonProps) {
     const [open, setOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
     const liRef = useRef<HTMLLIElement>(null);
@@ -45,16 +44,16 @@ export function PersonalButton({ isSidebarOpen, isMobile, session }: PersonalBut
                     onClick={() => setOpen(!open)}
                 >
                     <div className='bg-white text-black text-xs min-w-[20px] rounded-full h-5 w-5 flex items-center justify-center overflow-hidden'>
-                        {session?.user?.image ? 
-                            <Image 
+                        {session?.user?.image ?
+                            <Image
                                 src={session?.user?.image}
                                 alt={session?.user?.name}
                                 width={20}
                                 height={20}
                             />
-                        : firstLetter}
+                            : firstLetter}
                     </div>
-                    <span className={`text-sm transition-opacity duration-150 delay-100 ease-in-out ${!isMobile ? isSidebarOpen ? "opacity-100 visible" : "opacity-0 invisible" : ""}`}>
+                    <span className={`text-sm transition-opacity duration-150 delay-100 ease-in-out ${isSidebarOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}>
                         Personal
                     </span>
                 </button>

@@ -10,6 +10,10 @@ export const getSummaries = async (): Promise<SummaryDoc[] | undefined> => {
         const session: Session | null = await getServerSession(authOptions);
         const userEmail = session?.user?.email;
 
+        if (!userEmail) {
+            throw new Error('User email is undefined');
+        }
+
         const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/summary?userEmail=${userEmail}`, { cache: 'no-store' });
 
         if (response.ok) {

@@ -9,9 +9,10 @@ import { FaRegLightbulb } from "react-icons/fa";
 import Link from 'next/link';
 import { PersonalButton } from '../../account/PersonalButton';
 import { KeyButton } from '../../account/KeyButton';
+import { TokensCount } from '../TokensCount';
 
 export const Sidebar = () => {
-    const { isSidebarOpen, setSidebarOpen, isMobile } = useSidebar();
+    const { isSidebarOpen, setSidebarOpen } = useSidebar();
     const { data: session, status } = useSession();
 
     const toggleSidebar = () => {
@@ -61,13 +62,17 @@ export const Sidebar = () => {
                                 </>
                                 :
                                 <>
+                                    <TokensCount
+                                        isSidebarOpen={isSidebarOpen}
+                                    />
+
                                     <KeyButton
                                         isSidebarOpen={isSidebarOpen}
-                                        isMobile={isMobile}
+                                        isMobile={false}
                                     />
+
                                     <PersonalButton
                                         isSidebarOpen={isSidebarOpen}
-                                        isMobile={isMobile}
                                         session={session}
                                     />
                                 </>
