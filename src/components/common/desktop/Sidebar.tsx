@@ -26,8 +26,10 @@ export const Sidebar = () => {
 
     return (
         <>
-            <div className={`bg-black py-5 px-3.5 z-10 border-r border-solid border-border-primary fixed h-full
-                ${isSidebarOpen ? 'sidebar-open' : 'sidebar-close'}`}>
+            <div
+                className={`bg-black py-5 px-3.5 z-10 border-r border-solid border-border-primary fixed h-full
+                ${isSidebarOpen ? 'sidebar-open' : 'sidebar-close'}`}
+            >
                 <nav className='flex flex-col justify-between items-center h-full'>
                     <ul className='w-full flex flex-col gap-2'>
                         <li className='mb-5'>

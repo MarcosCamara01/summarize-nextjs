@@ -62,7 +62,7 @@ export function PersonalButton({ isSidebarOpen, session }: PersonalButtonProps) 
             {open && (
                 <div
                     ref={ref}
-                    className='fixed bottom-14 left-2 border border-solid border-border-primary rounded bg-black'
+                    className='fixed bottom-[60px] left-2 border border-solid border-border-primary rounded bg-black'
                 >
                     <div className='py-1.5 px-3.5'>
                         <div className='text-sm	font-medium'>{session?.user.name}</div>
