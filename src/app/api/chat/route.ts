@@ -24,7 +24,7 @@ export async function POST(req: Request) {
         const prompt = [
             {
                 role: 'system',
-                content: `Summarize the content provided to a student. ${textLanguage(language)}. The first sentence 
+                content: `Summarises the content provided to a university student. ${textLanguage(language)}. The first sentence 
                 you write will be a short title of no more than 5 words and will be separated from the abstract with
                  a colon. If you consider that the text obtained is not a valid text to create a summary you will say,
                   "I'm sorry, but the text you have provided  not valid." Example: "The Vietnam War: [Text Summary]."`,

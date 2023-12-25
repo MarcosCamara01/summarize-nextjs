@@ -1,34 +1,26 @@
 "use client"
 
 import { getSummaries } from '@/helpers/getSummaries';
+import { useSummary } from '@/hooks/SummariesContext';
+import { SummaryDoc } from '@/models/Summary';
 import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
 import { BsDiamondFill } from "react-icons/bs";
 
 export const TokensCount = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
     const [totalTokens, setTotalTokens] = useState({ inputTokens: 0, outputTokens: 0 });
+    const { summariesList } = useSummary();
     const [tokensPrice, setTokensPrice] = useState(0);
     const [open, setOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
     const liRef = useRef<HTMLLIElement>(null);
 
-    const getTokens = async () => {
+    const fetchTokens = async () => {
         try {
             const summaries = await getSummaries();
 
-            if (summaries !== undefined && summaries.length > 0 && totalTokens.inputTokens === 0) {
-                let totalInputTokens = 0;
-                let totalOutputTokens = 0;
-
-                summaries.forEach(summary => {
-                    totalInputTokens += summary.inputTokens || 0;
-                    totalOutputTokens += summary.outputTokens || 0;
-                });
-
-                setTotalTokens({
-                    inputTokens: totalInputTokens,
-                    outputTokens: totalOutputTokens,
-                });
+            if (summaries !== undefined && summaries.length > 0) {
+                saveTokens(summaries);
             }
         } catch (error) {
             console.error('Error obtaining tokens:  ', error);
@@ -46,9 +38,39 @@ export const TokensCount = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
         }
     };
 
-    useEffect(() => {
-        getTokens();
+    const saveTokens = (summaries: SummaryDoc[]) => {
+        let totalInputTokens = 0;
+        let totalOutputTokens = 0;
 
+        summaries.forEach(summary => {
+            totalInputTokens += summary.inputTokens || 0;
+            totalOutputTokens += summary.outputTokens || 0;
+        });
+
+        setTotalTokens({
+            inputTokens: totalInputTokens,
+            outputTokens: totalOutputTokens,
+        });
+    }
+
+    const formatNumber = (num: number) => {
+        if (num >= 1000000) {
+            return (num / 1000000).toFixed(1) + 'm';
+        } else if (num >= 1000) {
+            return (num / 1000).toFixed(1) + 'k';
+        }
+        return num;
+    };
+
+    useEffect(() => {
+        if (totalTokens.inputTokens === 0 && totalTokens.outputTokens === 0) {
+            fetchTokens();
+        } else if (summariesList.length >= 1) {
+            saveTokens(summariesList);
+        }
+    }, [summariesList]);
+
+    useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (
                 ref.current &&
@@ -96,12 +118,16 @@ export const TokensCount = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
                     className='fixed bottom-[140px] left-2 border border-solid border-border-primary rounded bg-black'
                 >
                     <div className='py-1.5 px-3.5'>
-                        <div className='text-sm	font-medium'>{totalTokens.inputTokens} Input tokens used</div>
-                        <div className='text-sm	font-medium mt-1'>{totalTokens.outputTokens} Output tokens used</div>
+                        <div className='text-sm	font-medium'>
+                            {formatNumber(totalTokens.inputTokens)} Input tokens
+                        </div>
+                        <div className='text-sm	font-medium mt-1'>
+                            {formatNumber(totalTokens.outputTokens)} Output tokens
+                        </div>
                     </div>
 
                     <div className='py-1.5 px-3.5 text-sm border-y border-solid border-border-primary'>
-                        Total cost: {tokensPrice.toFixed(3)}
+                        Total cost: {tokensPrice.toFixed(2)}
                     </div>
 
                     <Link

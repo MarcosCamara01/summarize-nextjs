@@ -40,14 +40,14 @@ export default function CreateSummary() {
     });
 
     useEffect(() => {
-        countTokens(input).then((r) => setInputTokens(r))
+        countTokens(input).then((r) => setInputTokens(r));
     }, [input]);
 
     useEffect(() => {
         const userKey = async () => {
             try {
                 const userKey = await getUserKey()
-                setApiKey(userKey);
+                setApiKey(userKey?.apiKey);
             } catch (error) {
                 console.error(error)
             }
