@@ -11,6 +11,7 @@ import { useSummary } from '@/hooks/SummariesContext';
 import { summaryWithTitle } from '@/helpers/summaryWithTitle';
 import { LanguageButton } from './ConfigurationButtons';
 import { getUserKey } from '@/helpers/UserKey';
+import { getSummaries } from '@/helpers/getSummaries';
 
 export default function CreateSummary() {
     const { data: session } = useSession();
@@ -30,8 +31,18 @@ export default function CreateSummary() {
                 const responseOutput = await countTokens(message.content);
 
                 const response = await saveSummary(message.content, session?.user?.email, inputTokens, responseOutput);
-                if (response.ok) {
-                    setSummariesList(...summariesList, response);
+                if (response !== "Failed to save summary") {
+                    if (!summariesList || summariesList.length === 0) {
+                        const summaries = await getSummaries();
+                        if (summaries) {
+                            setSummariesList([...summaries]);
+                        }
+                    } else {
+                        setSummariesList([...summariesList, response]);
+                        console.log([...summariesList, response]);
+                    }
+                } else {
+                    console.log(response);
                 }
             } catch (error) {
                 console.error(error);

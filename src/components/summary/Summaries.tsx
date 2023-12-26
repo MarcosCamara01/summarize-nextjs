@@ -32,7 +32,7 @@ export const Summaries = ({ summaries }: { summaries: SummaryDoc[] | undefined }
 
     return (
         <div className='max-w-5xl m-auto grid grid-cols-auto-fill-250 items-center justify-between gap-7'>
-            {summariesList.map((summary: SummaryDoc) => (
+            {summariesList?.map((summary: SummaryDoc) => (
                 <div
                     key={summary._id}
                     className='p-5 border border-solid border-border-primary bg-background-secondary rounded transition duration-150 ease hover:bg-color-secondary relative'

@@ -21,6 +21,7 @@ export const getSummaries = async (): Promise<SummaryDoc[] | undefined> => {
             return summaries;
         } else {
             console.error('Failed to fetch summaries');
+            return undefined;
         }
     } catch (error) {
         console.error('Failed to fetch summaries:', error);
