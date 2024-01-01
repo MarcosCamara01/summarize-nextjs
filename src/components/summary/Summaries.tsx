@@ -12,7 +12,7 @@ export const Summaries = ({ summaries }: { summaries: SummaryDoc[] | undefined }
     const [summaryIdToDelete, setSummaryIdToDelete] = useState<string | null>(null);
 
     useEffect(() => {
-        if (summariesList.length === 0) {
+        if (summariesList?.length === 0) {
             setSummariesList(summaries);
         }
     }, [summariesList])
