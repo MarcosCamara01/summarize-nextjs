@@ -68,8 +68,6 @@ export const TokensCount = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
         } else if (summariesList.length > 0) {
             saveTokens(summariesList);
         }
-
-        console.log(summariesList)
     }, [summariesList]);
 
     useEffect(() => {

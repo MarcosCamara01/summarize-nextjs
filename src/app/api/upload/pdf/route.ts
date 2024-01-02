@@ -6,16 +6,16 @@ import PDFParser from 'pdf2json';
 export async function POST(req: NextRequest) {
     try {
         const formData: FormData = await req.formData();
-        const uploadedFiles = formData.getAll('filepond');
+        const uploadedFiles = formData.getAll('file');
         let fileName = '';
         let parsedText = '';
 
         if (uploadedFiles && uploadedFiles.length > 0) {
-            const uploadedFile = uploadedFiles[1];
+            const uploadedFile = uploadedFiles[0];
 
             if (uploadedFile instanceof File) {
                 fileName = uuidv4();
-                const tempFilePath = `C:\\Users\\Marcos\\AppData\\Local\\Temp\\${fileName}.pdf`;
+                const tempFilePath = `C:\\Users\\marco\\AppData\\Local\\Temp\\${fileName}.pdf`;
                 const fileBuffer = Buffer.from(await uploadedFile.arrayBuffer());
 
                 await fs.writeFile(tempFilePath, fileBuffer);
@@ -39,9 +39,7 @@ export async function POST(req: NextRequest) {
 
                 await pdfPromise;
 
-                const response = new NextResponse(parsedText);
-                response.headers.set('FileName', fileName);
-                return response;
+                return new NextResponse(parsedText);
             } else {
                 console.error('The uploaded file is not a valid file.');
             }
