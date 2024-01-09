@@ -13,7 +13,7 @@ export const SidebarProvider = ({ children }) => {
     const isMobile = !!mobile;
 
     return (
-        <SidebarContext.Provider value={{ isSidebarOpen, setSidebarOpen, isNavbarOpen, setisNavbarOpen, isMobile }}>
+        <SidebarContext.Provider value={{ isSidebarOpen, setSidebarOpen, isMobile }}>
             {children}
         </SidebarContext.Provider>
     );

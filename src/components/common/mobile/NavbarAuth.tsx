@@ -9,13 +9,14 @@ import { FaRegLightbulb } from "react-icons/fa";
 import Link from 'next/link';
 import { PersonalButton } from '../../account/PersonalButton';
 import { KeyButton } from '../../account/KeyButton';
+import { TokensCount } from '../TokensCount';
 
 export const NavbarAuth = () => {
-    const { isNavbarOpen, setisNavbarOpen } = useSidebar();
+    const { isSidebarOpen, setSidebarOpen } = useSidebar();
     const { data: session, status } = useSession();
 
     const toggleSidebar = () => {
-        setisNavbarOpen(!isNavbarOpen);
+        setSidebarOpen(!isSidebarOpen);
     };
 
     const linksData = [
@@ -26,7 +27,7 @@ export const NavbarAuth = () => {
     return (
         <>
             <div className={`bg-black py-5 px-3.5 z-10 border-r border-solid border-border-primary fixed h-full w-full
-                transition duration-100 ease ${isNavbarOpen ? "translate-x-0" : "translate-x-hide overflow-hidden"}`}>
+                transition duration-100 ease ${isSidebarOpen ? "translate-x-0" : "translate-x-hide overflow-hidden"}`}>
                 <nav className='flex flex-col justify-between items-center h-full'>
                     <ul className='w-full flex flex-col gap-2'>
                         <li className='mb-5'>
@@ -59,16 +60,18 @@ export const NavbarAuth = () => {
                                 <>
                                     <div className='w-full h-5 rounded-sm shine'></div>
                                     <div className='w-full h-5 rounded-sm shine'></div>
-                                </>
+                                </> 
                                 :
                                 <>
+                                    <TokensCount
+                                        isSidebarOpen={true}
+                                    />
                                     <KeyButton
                                         isSidebarOpen={true}
                                         isMobile={true}
                                     />
                                     <PersonalButton
                                         isSidebarOpen={true}
-                                        isMobile={true}
                                         session={session}
                                     />
                                 </>
@@ -86,7 +89,7 @@ export const NavbarAuth = () => {
 
                 <button onClick={toggleSidebar}>
                     {
-                        isNavbarOpen ?
+                        isSidebarOpen ?
                             <RiCloseFill
                                 className="text-2xl"
                             />
