@@ -1,5 +1,5 @@
 import { isMobileDevice } from '@/utils/responsive';
-import Redirect from '@/components/overview/Redirect';
+import Redirect from '@/app/(authenticated)/overview/Redirect';
 
 import DesktopPage from './(desktop)';
 import MobilePage from './(mobile)';
