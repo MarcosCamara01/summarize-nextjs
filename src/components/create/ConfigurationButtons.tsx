@@ -8,7 +8,7 @@ export const LanguageButton: React.FC<LanguageButtonProps> = ({ setLanguage }) =
     return (
         <div data-bs-theme="dark">
             <select
-                className="mb-4 text-white bg-background-secondary border border-solid border-border-primary px-3 py-1.5 rounded"
+                className="text-white bg-background-secondary border border-solid border-border-primary px-3 py-1.5 rounded"
                 onChange={(e) => {
                     setLanguage(e.target.value)
                 }}

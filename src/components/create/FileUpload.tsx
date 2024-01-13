@@ -30,7 +30,13 @@ const FileUpload: React.FC<FileUploadProps> = ({ setInput }) => {
     };
 
     return (
-        <input type="file" onChange={handleFileChange} />
+        <input
+            className="h-[35px] block w-full text-sm border rounded cursor-pointer text-gray-400 outline-none
+             bg-background-secondary border-border-primary placeholder-gray-400 file:h-[35px]"
+            aria-describedby="file_i nput_help"
+            id="file_input" type="file"
+            onChange={handleFileChange}
+        />
     );
 }
 

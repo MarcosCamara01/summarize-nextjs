@@ -78,26 +78,26 @@ export default function CreateSummary() {
                     />
                     :
 
-                    <form className='w-full flex flex-col items-center justify-center gap-6 px-3.5 min-[350px]:px-6 sm:px-0' onSubmit={handleSubmit}>
+                    <form className='w-full flex flex-col items-center justify-center gap-6 px-3.5 min-[350px]:px-6' onSubmit={handleSubmit}>
                         <textarea
                             className='w-full max-w-3xl max-h-96 min-h-150 p-1.5 rounded bg-background-secondary border border-solid border-border-primary text-sm '
                             value={input}
                             onChange={handleInputChange}
                         />
 
-                        <div className='w-full max-w-3xl flex justify-between'>
+                        <div className='w-full max-w-3xl flex justify-between gap-5'>
                             <LanguageButton
                                 setLanguage={setLanguage}
                             />
-                        </div>
 
-                        <div className='w-full max-w-3xl m-auto'>
-                            <div className='w-full h-[38px]'>
-                                <FileUpload
-                                    setInput={setInput}
-                                />
+                            <div className='w-full max-w-[220px]'>
+                                <div className='w-full'>
+                                    <FileUpload
+                                        setInput={setInput}
+                                    />
+                                </div>
+                                <div></div>
                             </div>
-                            <div></div>
                         </div>
 
                         <button type="submit" className='w-40 bg-background-secondary border border-solid border-border-primary rounded py-1 text-sm transition duration-150 ease hover:bg-color-secondary'>
