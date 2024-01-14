@@ -32,7 +32,8 @@ const FileUpload: React.FC<FileUploadProps> = ({ setInput }) => {
     return (
         <input
             className="h-[35px] block w-full text-sm border rounded cursor-pointer text-gray-400 outline-none
-             bg-background-secondary border-border-primary placeholder-gray-400 file:h-[35px]"
+             bg-background-secondary border-border-primary placeholder-gray-400 file:h-[35px] file:bg-background-secondary 
+             file:border-0 file:text-white file:border-r file:border-solid file:border-border-primary"
             aria-describedby="file_i nput_help"
             id="file_input" type="file"
             onChange={handleFileChange}
